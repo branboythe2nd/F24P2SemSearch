@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import student.TestCase;
 
 /**
- * @author {Your Name Here}
+ * @author huhuhu
  * @version {Put Something Here}
  */
 public class ProblemSpecTest extends TestCase {
