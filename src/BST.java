@@ -1,14 +1,12 @@
-import java.util.Comparator;
+
 
 public class BST<T> {
     private int numOfRecords;
     private Node<T> root;
-    private Comparator<T> comparator;
     
-    public BST(Comparator<T> comparator) {
+    public BST() {
         setRoot(null);
         setNumOfRecords(0);
-        this.comparator = comparator;
     }
     
     public void searchExact(T value) {
@@ -24,9 +22,7 @@ public class BST<T> {
     }
     
     public void insert(T value) {
-        if (comparator.compare(root.getData(),value)>0) {
-            
-        }
+        
     }
     
     public void delete(int ID) {
