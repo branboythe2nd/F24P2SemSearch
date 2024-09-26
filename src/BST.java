@@ -38,7 +38,7 @@ public class BST<T extends Comparable<T>> {
             return root;
         }
         int out = root.getData().compareTo(value);
-        if(out < 0)
+        if(out > 0)
         {
             root.setLeft(new Node<T>(value, null, null));
         }
