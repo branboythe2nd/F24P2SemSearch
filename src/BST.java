@@ -9,18 +9,21 @@ public class BST<T extends Comparable<T>> {
     }
 
 
-    public Node<T> searchExact(T value) {
+    public Seminar searchExact(T value) {
         return null;
     }
     
-
-
-    public Node<T> searchRange(T lower, T higher) {
+    private Node<T> searchHelp(Node<T> root, T value){
+        return null;
+    }
+    
+    
+    public Seminar searchRange(T lower, T higher) {
         return null;
     }
 
 
-    public Node<T> searchLocation(int x, int y, int radius) {
+    public Seminar searchLocation(int x, int y, int radius) {
         return null;
     }
 
