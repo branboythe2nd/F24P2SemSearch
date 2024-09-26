@@ -1,6 +1,6 @@
 
 
-public class BST<T> {
+public class BST<T extends Comparable<T>> {
     private int numOfRecords;
     private Node<T> root;
     
