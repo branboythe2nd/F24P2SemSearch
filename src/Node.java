@@ -1,13 +1,11 @@
 
 public class Node<T> {
     private T data;
-    private Seminar seminar;
     private Node<T> left;
     private Node<T> right;
 
-    public Node(T data, Seminar s, Node<T> left, Node<T> right) {
-        this.data = data;
-        setSeminar(s);
+    public Node(T data, Node<T> left, Node<T> right) {
+        this.data = data;;
         this.left = left;
         this.right = right;
     }
@@ -40,15 +38,5 @@ public class Node<T> {
 
     public T getData() {
         return data;
-    }
-
-
-    public Seminar getSeminar() {
-        return seminar;
-    }
-
-
-    public void setSeminar(Seminar seminar) {
-        this.seminar = seminar;
     }
 }
