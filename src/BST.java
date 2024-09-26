@@ -25,28 +25,25 @@ public class BST<T extends Comparable<T>> {
 
 
     public void insert(T key, Seminar value) {
-        root = insertHelp(root,key, value);
+        root = insertHelp(root, key, value);
         numOfRecords++;
     }
 
 
-    public Node<T> insertHelp(Node<T> root, T key, Seminar value)
-    {
-        if(root==null)
-        {
-            root = new Node<T>(key,value,null,null);
+    public Node<T> insertHelp(Node<T> root, T key, Seminar value) {
+        if (root == null) {
+            root = new Node<T>(key, value, null, null);
             return root;
         }
         int out = root.getData().compareTo(key);
-        if(out > 0)
-        {
-            root.setLeft(new Node<T>(key,value,null,null));
+        if (out > 0) {
+            root.setLeft(insertHelp(root.getLeft(), key, value));
         }
         else {
-            root.setRight(new Node<T>(key,value,null,null));
+            root.setRight(insertHelp(root.getRight(), key, value));
         }
         return root;
-        
+
     }
 
 
