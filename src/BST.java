@@ -9,12 +9,30 @@ public class BST<T extends Comparable<T>> {
     }
 
 
-    public Seminar searchExact(T value) {
-        return null;
+    public DLList<Seminar> searchExact(T value) {
+        DLList<Seminar> found = new DLList<Seminar>();
+        searchHelp(root, value,found);
+        return found;
     }
     
-    private Node<T> searchHelp(Node<T> root, T value){
-        return null;
+    private void searchHelp(Node<T> root, T value, DLList<Seminar> found){
+        if(root == null)
+        {
+            return;
+        }
+        int c = root.getData().compareTo(value);
+        if(c == 0 )
+        {
+            found.add(root.getSeminar());
+        }
+        if(c >= 0)
+        {
+            searchHelp(root.getLeft(),value, found);
+        }
+        if(c <= 0)
+        {
+            searchHelp(root.getRight(),value,found);            
+        }
     }
     
     
