@@ -14,7 +14,6 @@ public class Controller {
     private BST<Integer> costTree;
     private BST<String> datesTree;
     private BST<String> keywordsTree;
-    private int numOfEntries;
 
     /**
      * Constructs a Controller with the given length for hash tables and graph.
@@ -27,7 +26,6 @@ public class Controller {
         costTree = new BST<Integer>();
         datesTree = new BST<String>();
         keywordsTree = new BST<String>();
-        numOfEntries = 0;
     }
 
 
