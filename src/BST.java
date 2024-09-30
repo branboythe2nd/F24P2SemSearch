@@ -11,33 +11,55 @@ public class BST<T extends Comparable<T>> {
 
     public DLList<Seminar> searchExact(T value) {
         DLList<Seminar> found = new DLList<Seminar>();
-        searchHelp(root, value,found);
+        searchHelp(root, value, found);
         return found;
     }
-    
-    private void searchHelp(Node<T> root, T value, DLList<Seminar> found){
-        if(root == null)
-        {
+
+
+    private void searchHelp(Node<T> root, T value, DLList<Seminar> found) {
+        if (root == null) {
             return;
         }
         int c = root.getData().compareTo(value);
-        if(c == 0 )
-        {
+        if (c > 0) {
+            searchHelp(root.getLeft(), value, found);
+        }
+        else if (c < 0) {
+            searchHelp(root.getRight(), value, found);
+        }
+        else {
             found.add(root.getSeminar());
         }
-        if(c >= 0)
-        {
-            searchHelp(root.getLeft(),value, found);
-        }
-        if(c <= 0)
-        {
-            searchHelp(root.getRight(),value,found);            
-        }
     }
-    
-    
-    public Seminar searchRange(T lower, T higher) {
-        return null;
+
+
+    public DLList<Seminar> searchRange(T lower, T higher) {
+        DLList<Seminar> found = new DLList<Seminar>();
+        searchHelpRange(root, lower, higher, found);
+        return found;
+    }
+
+
+    private void searchHelpRange(
+        Node<T> root,
+        T lower,
+        T higher,
+        DLList<Seminar> found) {
+        if (root == null) {
+            return;
+        }
+        int low = root.getData().compareTo(lower);
+        int high = root.getData().compareTo(higher);
+        if (low >= 0 && high <= 0) {
+            found.add(root.getSeminar());
+        }
+        else if (low < 0) {
+            searchHelpRange(root.getRight(), lower, higher, found);
+        }
+        else if (high > 0) {
+            searchHelpRange(root.getLeft(), lower, higher, found);
+        }
+
     }
 
 
@@ -69,34 +91,39 @@ public class BST<T extends Comparable<T>> {
     }
 
 
-    public void delete(T key) {
-        root = deleteHelp(root, key);
+    public void delete(T key, int id) {
+        root = deleteHelp(root, key, id);
         numOfRecords--;
     }
 
 
-    private Node<T> deleteHelp(Node<T> root, T key) {
+    private Node<T> deleteHelp(Node<T> root, T key, int id) {
         if (root == null) {
             return null;
         }
         int out = root.getData().compareTo(key);
         if (out > 0) {
-            root.setLeft(deleteHelp(root.getLeft(), key));
+            root.setLeft(deleteHelp(root.getLeft(), key, id));
         }
         else if (out < 0) {
-            root.setRight(deleteHelp(root.getRight(), key));
+            root.setRight(deleteHelp(root.getRight(), key, id));
         }
         else {
-            if (root.getLeft() == null) {
-                return root.getRight();
-            }
-            else if (root.getRight() == null) {
-                return root.getLeft();
+            if (root.getSeminar().id() == id) {
+                if (root.getLeft() == null) {
+                    return root.getRight();
+                }
+                else if (root.getRight() == null) {
+                    return root.getLeft();
+                }
+                else {
+                    Node<T> max = findMax(root.getLeft());
+                    root.setData(max.getData());
+                    root.setLeft(deleteHelp(root.getLeft(), max.getData(), id));
+                }
             }
             else {
-                Node<T> max = findMax(root.getLeft());
-                root.setData(max.getData());
-                root.setLeft(deleteHelp(root.getLeft(), max.getData()));
+                deleteHelp(root.getRight(), key, id);
             }
         }
         return root;

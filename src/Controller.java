@@ -43,47 +43,40 @@ public class Controller {
      *            the name of the song to insert
      */
     public void insert(Seminar s) {
-        if(idTree.searchExact(s.id()) == null)
-        {
+        if (idTree.searchExact(s.id()) == null) {
             idTree.insert(s.id(), s);
             costTree.insert(s.cost(), s);
             datesTree.insert(s.date(), s);
-            for(String word : s.keywords() )
-            {
+            for (String word : s.keywords()) {
                 keywordsTree.insert(word, s);
             }
-            System.out.println("Successfully inserted record with ID "+s.id());
+            System.out.println("Successfully inserted record with ID " + s
+                .id());
             System.out.println(s.toString());
-            
+
         }
-        else
-        {
-            System.out.println("Insert FAILED - There is already a record with ID " + s.id());
+        else {
+            System.out.println(
+                "Insert FAILED - There is already a record with ID " + s.id());
         }
-        
 
     }
-    
-    public void remove(int id)
-    {
+
+
+    public void remove(int id) {
         DLList<Seminar> sem = idTree.searchExact(id);
-        if(sem.isEmpty())
-        {
+        if (sem.isEmpty()) {
             System.out.println("REMOVE FAILED ID DOES NOT EXIST");
         }
-        for(Seminar s: sem)
-        {
-            idTree.delete(s.id());
-            costTree.delete(s.cost());
-            datesTree.delete(s.date());
-            for(String k: s.keywords() )
-            {
-                keywordsTree.delete(k);
+        for (Seminar s : sem) {
+            idTree.delete(s.id(), id);
+            costTree.delete(s.cost(), id);
+            datesTree.delete(s.date(), id);
+            for (String k : s.keywords()) {
+                keywordsTree.delete(k, id);
             }
         }
-        
-        
-                
+
     }
 
 }
