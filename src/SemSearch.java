@@ -113,7 +113,7 @@ public class SemSearch {
 
     private static void handleDelete(String[] commandParts) {
         int id = Integer.parseInt(commandParts[1]);
-        // Delete logic here
+        control.delete(id);
     }
 
 
