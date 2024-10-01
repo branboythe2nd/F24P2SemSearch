@@ -3,7 +3,7 @@
 public class BSTTest extends student.TestCase {
     
     private BST<Integer> test;
-    private String[] keywords = {"keyword1", "keyword2"};
+    private String[] keywords = {"1", "2"};
     private Seminar sem1;
     private Seminar sem2;
     private Seminar sem3;
@@ -14,6 +14,7 @@ public class BSTTest extends student.TestCase {
     private Seminar sem8;
     private Seminar sem9;
     private Seminar sem10;
+    private Seminar sem11;
     public void setUp()
     {
        test = new BST<Integer>();
@@ -28,12 +29,12 @@ public class BSTTest extends student.TestCase {
        sem8 = new Seminar(8, "Sub", "0510051600", 60, (short) 170, (short) 220, 420, keywords, "g");
        sem9 = new Seminar(9, "niceee", "0610051900", 90, (short) 180, (short) 230, 310, keywords, "h");
        sem10 = new Seminar(10, "kk", "0610051600", 120, (short) 190, (short) 240, 360, keywords, "i");
+       sem11 = new Seminar(11, "oho", "2710051600", 120, (short) 190, (short) 240, 360, keywords, "oo");
 
     }
     
     public void testInsertAndSearch()
     {
-        String[] key = {"hhhh","wwww"};
         test.insert(sem6.id(), sem6);
         test.insert(sem5.id(), sem5);
         test.insert(sem7.id(), sem7);
@@ -123,4 +124,54 @@ public class BSTTest extends student.TestCase {
         
     }
     
+    public void testRemoveAndSearch() {
+        test.insert(sem6.id(), sem6);
+        test.insert(sem5.id(), sem5);
+        test.insert(sem7.id(), sem7);
+        test.insert(sem10.id(), sem10);
+        test.insert(sem4.id(), sem4);
+        test.insert(sem2.id(), sem2);
+        test.insert(sem1.id(), sem1);
+        test.insert(sem8.id(), sem8);
+        test.insert(sem3.id(), sem3);
+        test.insert(sem9.id(), sem9);
+        test.insert(sem9.id(), sem9);
+        test.insert(sem11.id(), sem11);
+        
+        test.delete(6, sem6.id());
+        assertEquals((int)test.getRoot().getData(),5);
+        assertEquals(test.getRoot().getSeminar(),sem5);
+        
+        test.delete(10, sem10.id());
+        Node<Integer> root = test.getRoot(); 
+        Node<Integer> curr = root.getRight().getRight();
+        assertEquals((int)curr.getData(),9);
+        assertEquals(curr.getSeminar(),sem9);
+        assertEquals((int)curr.getLeft().getData(),8);
+        assertEquals((int)curr.getLeft().getRight().getData(),9);
+        assertNull(curr.getLeft().getRight().getRight());
+        
+        assertEquals(test.getNumOfRecords(),10);
+        
+        
+    }
+    
+    public void testSearchRange() {
+        test.insert(sem6.id(), sem6);
+        test.insert(sem5.id(), sem5);
+        test.insert(sem7.id(), sem7);
+        test.insert(sem10.id(), sem10);
+        test.insert(sem4.id(), sem4);
+        test.insert(sem2.id(), sem2);
+        test.insert(sem1.id(), sem1);
+        test.insert(sem8.id(), sem8);
+        test.insert(sem3.id(), sem3);
+        test.insert(sem9.id(), sem9);
+        test.insert(sem9.id(), sem9);
+        test.insert(sem11.id(), sem11);
+        
+        DLList<Seminar> result = test.searchRange(5, 8);
+        assertEquals(4, result.size());
+        
+    }
 }
