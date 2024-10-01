@@ -29,6 +29,7 @@ public class BST<T extends Comparable<T>> {
         }
         else {
             found.add(root.getSeminar());
+            searchHelp(root.getRight(), value, found);
         }
     }
 
@@ -52,6 +53,8 @@ public class BST<T extends Comparable<T>> {
         int high = root.getData().compareTo(higher);
         if (low >= 0 && high <= 0) {
             found.add(root.getSeminar());
+            searchHelpRange(root.getRight(), lower, higher, found);
+            searchHelpRange(root.getLeft(), lower, higher, found);
         }
         else if (low < 0) {
             searchHelpRange(root.getRight(), lower, higher, found);
@@ -119,7 +122,8 @@ public class BST<T extends Comparable<T>> {
                 else {
                     Node<T> max = findMax(root.getLeft());
                     root.setData(max.getData());
-                    root.setLeft(deleteHelp(root.getLeft(), max.getData(), id));
+                    root.setSeminar(max.getSeminar());
+                    root.setLeft(deleteHelp(root.getLeft(), max.getData(), max.getSeminar().id()));
                 }
             }
             else {
