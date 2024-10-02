@@ -123,16 +123,16 @@ public class SemSearch {
         switch (searchType) {
             case "id":
                 int id = Integer.parseInt(commandParts[2]);
-                // Search by ID logic
+                control.searchID(id);
                 break;
             case "keyword":
                 String keyword = commandParts[2];
-                // Search by keyword logic
+                control.searchKeyword(keyword);
                 break;
             case "cost":
                 int low = Integer.parseInt(commandParts[2]);
                 int high = Integer.parseInt(commandParts[3]);
-                // Search by cost range logic
+                control.searchRange(low, high);
                 break;
             case "location":
                 short x = Short.parseShort(commandParts[2]);
@@ -143,7 +143,7 @@ public class SemSearch {
             case "date":
                 String startDate = commandParts[2];
                 String endDate = commandParts[3];
-                // Search by date range logic
+                control.searchRange(startDate, endDate);
                 break;
             default:
                 System.out.println("Invalid search type: " + searchType);
@@ -157,19 +157,19 @@ public class SemSearch {
 
         switch (printType) {
             case "id":
-                // Print by ID logic
+                control.printId();
                 break;
             case "keyword":
-                // Print by keyword logic
+                control.printKeyword();
                 break;
             case "location":
                 // Print by location logic
                 break;
             case "cost":
-                // Print by cost logic
+                control.printCost();
                 break;
             case "date":
-                // Print by date logic
+                control.printDates();
                 break;
             default:
                 System.out.println("Invalid print type: " + printType);

@@ -76,33 +76,57 @@ public class Controller {
         }
 
     }
-    public void searchID(int id)
-    {
+
+
+    public void searchID(int id) {
         DLList<Seminar> sem = idTree.searchExact(id);
         for (Seminar s : sem) {
-             System.out.println(s.toString());
+            System.out.println(s.toString());
         }
     }
-    public void searchKeyword(String key)
-    {
+
+
+    public void searchKeyword(String key) {
         DLList<Seminar> sem = keywordsTree.searchExact(key);
         for (Seminar s : sem) {
-             System.out.println(s.toString());
+            System.out.println(s.toString());
         }
     }
-    public void searchRange(int low, int high)
-    {
-        DLList<Seminar> sem = costTree.searchRange(low,high);
+
+
+    public void searchRange(int low, int high) {
+        DLList<Seminar> sem = costTree.searchRange(low, high);
         for (Seminar s : sem) {
-             System.out.println(s.toString());
+            System.out.println(s.toString());
         }
     }
-    public void searchRange(String low, String high)
-    {
-        DLList<Seminar> sem = datesTree.searchRange(low,high);
+
+
+    public void searchRange(String low, String high) {
+        DLList<Seminar> sem = datesTree.searchRange(low, high);
         for (Seminar s : sem) {
-             System.out.println(s.toString());
+            System.out.println(s.toString());
         }
+    }
+
+
+    public void printId() {
+        idTree.print();
+    }
+
+
+    public void printKeyword() {
+        keywordsTree.print();
+    }
+
+
+    public void printCost() {
+        costTree.print();
+    }
+
+
+    public void printDates() {
+        datesTree.print();
     }
 
 }

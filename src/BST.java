@@ -148,7 +148,7 @@ public class BST<T extends Comparable<T>> {
     {
         if(root==null)
         {
-            return -1;
+            return 0;
         }
         int right = findHeightHelp(root.getLeft());
         int left = findHeightHelp(root.getRight());
@@ -177,6 +177,11 @@ public class BST<T extends Comparable<T>> {
     {
         if(root == null)
         {
+            for(int i = 0; i < (h-level); i++)
+            {
+                System.out.print("    ");
+            }
+            System.out.println("(null)");
             return;
         }
         
@@ -184,10 +189,19 @@ public class BST<T extends Comparable<T>> {
         
         for(int i = 0; i < (h-level); i++)
         {
-            System.out.print("  ");
+            System.out.print("    ");
+        }
+        System.out.println("\\");
+        for(int i = 0; i < (h-level); i++)
+        {
+            System.out.print("    ");
         }
         System.out.println("("+root.getData()+")");
-        
+        for(int i = 0; i < (h-level); i++)
+        {
+            System.out.print("    ");
+        }
+        System.out.println("/");
         printHelp(root.getRight(),h,level + 1);
     }
 
