@@ -41,7 +41,8 @@ public class Controller {
      *            the name of the song to insert
      */
     public void insert(Seminar s) {
-        if (idTree.searchExact(s.id()) == null) {
+        DLList<Seminar> sem = idTree.searchExact(s.id());
+        if (sem.isEmpty()) {
             idTree.insert(s.id(), s);
             costTree.insert(s.cost(), s);
             datesTree.insert(s.date(), s);
@@ -80,14 +81,22 @@ public class Controller {
 
     public void searchID(int id) {
         DLList<Seminar> sem = idTree.searchExact(id);
-        for (Seminar s : sem) {
-            System.out.println(s.toString());
+        if (sem.isEmpty()) {
+            System.out.println("Search FAILED -- There is no record with ID "
+                + id);
+        }
+        else {
+            System.out.println("Found record with ID " + id + ":");
+            for (Seminar s : sem) {
+                System.out.println(s.toString());
+            }
         }
     }
 
 
     public void searchKeyword(String key) {
         DLList<Seminar> sem = keywordsTree.searchExact(key);
+        System.out.println("Seminars matching keyword " + key + ":");
         for (Seminar s : sem) {
             System.out.println(s.toString());
         }
@@ -96,36 +105,44 @@ public class Controller {
 
     public void searchRange(int low, int high) {
         DLList<Seminar> sem = costTree.searchRange(low, high);
+        System.out.println("Seminars with costs in range " + low + " to " + high + ":");
         for (Seminar s : sem) {
             System.out.println(s.toString());
         }
+        System.out.println(costTree.getNodesTraversed() + " nodes visited in this search");
     }
 
 
     public void searchRange(String low, String high) {
         DLList<Seminar> sem = datesTree.searchRange(low, high);
+        System.out.println("Seminars with dates in range " + low + " to " + high + ":");
         for (Seminar s : sem) {
             System.out.println(s.toString());
         }
+        System.out.println(costTree.getNodesTraversed() + " nodes visited in this search");
     }
 
 
     public void printId() {
+        System.out.println("ID Tree:");
         idTree.print();
     }
 
 
     public void printKeyword() {
+        System.out.println("Keyword Tree:");
         keywordsTree.print();
     }
 
 
     public void printCost() {
+        System.out.println("Cost Tree:");
         costTree.print();
     }
 
 
     public void printDates() {
+        System.out.println("Date Tree:");
         datesTree.print();
     }
 

@@ -40,10 +40,10 @@ public class SemSearch {
     /**
      * @param args
      *            Command line parameters
+     * @throws FileNotFoundException 
      */
-    public static void main(String[] args) {
-        // This is the main file for the program.
-        Seminar dum = new Seminar();
+    public static void main(String[] args) throws FileNotFoundException {
+        processCommandFile(args[1]);
     }
 
 

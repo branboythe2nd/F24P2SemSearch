@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import student.TestCase;
 
 /**
- * @author huhuhu
+ * @author Brantson
  * @version {Put Something Here}
  */
 public class ProblemSpecTest extends TestCase {
@@ -43,9 +43,9 @@ public class ProblemSpecTest extends TestCase {
         // Setting up all the parameters
         String[] args = new String[2];
         args[0] = "128";
-        args[1] = "P2_sampleInput.txt";
+        args[1] = "solutionTestData/P2_sampleInput.txt";
 
-        // Invoke main method of our Graph Project
+        // Invoke main method of our SemSearch
         SemSearch.main(args);
 
         // Actual output from your System console
@@ -73,7 +73,7 @@ public class ProblemSpecTest extends TestCase {
         // Setting up all the parameters
         String[] args = new String[2];
         args[0] = "128";
-        args[1] = "P2_syntaxInsertInput.txt";
+        args[1] = "solutionTestData/P2_syntaxInsertInput.txt";
 
         // Invoke main method of our Graph Project
         SemSearch.main(args);
