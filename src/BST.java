@@ -131,6 +131,64 @@ public class BST<T extends Comparable<T>> {
             }
         }
         return root;
+    }   
+    
+    public int findHeight()
+    {
+        if(this.getNumOfRecords()==0)
+        {
+            return 0;
+        }
+        else
+        {
+            return findHeightHelp(root);
+        }
+    }
+    private int findHeightHelp(Node<T> root)
+    {
+        if(root==null)
+        {
+            return -1;
+        }
+        int right = findHeightHelp(root.getLeft());
+        int left = findHeightHelp(root.getRight());
+        
+        if(left>right)
+        {
+            return left+1;
+        }
+        else
+        {
+            return right+1;
+        }
+            
+    }
+    
+    public void print()
+    {
+        if(numOfRecords==0)
+        {
+            System.out.println("Tree is Empty");            
+        }
+        int height = this.findHeight();
+        printHelp(root,height,0);        
+    }
+    private void printHelp(Node<T> root, int h, int level)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        
+        printHelp(root.getLeft(),h,level+1);
+        
+        for(int i = 0; i < (h-level); i++)
+        {
+            System.out.print(" ");
+        }
+        System.out.println("("+root.getData()+")");
+        
+        printHelp(root.getRight(),h,level + 1);
     }
 
 

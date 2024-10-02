@@ -174,4 +174,22 @@ public class BSTTest extends student.TestCase {
         assertEquals(4, result.size());
         
     }
+    public void testPrint()
+    {
+        test.insert(sem6.id(), sem6);
+        test.insert(sem5.id(), sem5);
+        test.insert(sem7.id(), sem7);
+        test.insert(sem10.id(), sem10);
+        test.insert(sem4.id(), sem4);
+        test.insert(sem2.id(), sem2);
+        test.insert(sem1.id(), sem1);
+        test.insert(sem8.id(), sem8);
+        test.insert(sem3.id(), sem3);
+        test.insert(sem9.id(), sem9);
+        test.insert(sem9.id(), sem9);
+        test.insert(sem11.id(), sem11);
+        
+        test.print();
+        
+    }
 }
