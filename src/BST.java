@@ -184,7 +184,7 @@ public class BST<T extends Comparable<T>> {
         
         for(int i = 0; i < (h-level); i++)
         {
-            System.out.print(" ");
+            System.out.print("  ");
         }
         System.out.println("("+root.getData()+")");
         
