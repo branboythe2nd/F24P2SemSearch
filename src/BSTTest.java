@@ -46,6 +46,8 @@ public class BSTTest extends student.TestCase {
         test.insert(sem3.id(), sem3);
         test.insert(sem9.id(), sem9);
         test.insert(sem9.id(), sem9);
+        test.insert(sem9.id(), sem9);
+        test.print();
         
         DLList<Seminar> result = test.searchExact(1);
         assertEquals(1, result.size());
@@ -72,13 +74,13 @@ public class BSTTest extends student.TestCase {
         assertEquals(1, result.size());
         assertTrue(result.contains(sem8));
         result = test.searchExact(9);
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         assertTrue(result.contains(sem9));
         result = test.searchExact(10);
         assertEquals(1, result.size());
         assertTrue(result.contains(sem10));
         
-        assertEquals(11,test.getNumOfRecords());
+        assertEquals(12,test.getNumOfRecords());
         
         Node<Integer> root = test.getRoot();
         assertEquals((int)root.getData(),6);
@@ -99,7 +101,7 @@ public class BSTTest extends student.TestCase {
         rightNode = rightNode.getRight();
         assertEquals((int)rightNode.getData(),9);
         assertEquals(rightNode.getSeminar(),sem9);
-        rightNode = rightNode.getRight();
+        rightNode = rightNode.getLeft();
         assertEquals((int)rightNode.getData(),9);
         assertEquals(rightNode.getSeminar(),sem9);       
         
@@ -120,6 +122,21 @@ public class BSTTest extends student.TestCase {
         assertEquals((int)leftNode.getData(),1);
         assertEquals(leftNode.getSeminar(),sem1);
         
+        BST<Integer> co = new BST<Integer>();
+        co.insert(45, sem1);
+        co.insert(30, sem2);
+        co.insert(17, sem3);
+        co.insert(30, sem4);
+        root = co.getRoot();
+        assertEquals((int)root.getData(),45);
+        root = root.getLeft();
+        assertEquals((int)root.getData(),30);
+        root = root.getLeft();
+        assertEquals((int)root.getData(),17);
+        root = root.getRight();
+        assertEquals((int)root.getData(),30);
+        
+        assertEquals(4,co.findHeight());
         
         
     }
@@ -138,20 +155,29 @@ public class BSTTest extends student.TestCase {
         test.insert(sem9.id(), sem9);
         test.insert(sem11.id(), sem11);
         
+        test.delete(7, 69);
+        Node<Integer> stillExist = test.getRoot().getRight();
+        assertEquals((int) stillExist.getData(),7);
+        
         test.delete(6, sem6.id());
         assertEquals((int)test.getRoot().getData(),5);
         assertEquals(test.getRoot().getSeminar(),sem5);
         
+        test.delete(7, sem7.id());
+        assertEquals((int)test.getRoot().getRight().getData(),10);
+        
         test.delete(10, sem10.id());
         Node<Integer> root = test.getRoot(); 
-        Node<Integer> curr = root.getRight().getRight();
+        Node<Integer> curr = root.getRight();
         assertEquals((int)curr.getData(),9);
         assertEquals(curr.getSeminar(),sem9);
         assertEquals((int)curr.getLeft().getData(),8);
         assertEquals((int)curr.getLeft().getRight().getData(),9);
         assertNull(curr.getLeft().getRight().getRight());
         
-        assertEquals(test.getNumOfRecords(),10);
+        
+        
+        assertEquals(test.getNumOfRecords(),8);
         
         
     }
@@ -172,6 +198,7 @@ public class BSTTest extends student.TestCase {
         
         DLList<Seminar> result = test.searchRange(5, 8);
         assertEquals(4, result.size());
+        assertEquals(13,test.getNodesTraversed());
         
     }
     public void testPrint()
@@ -190,6 +217,11 @@ public class BSTTest extends student.TestCase {
         test.insert(sem11.id(), sem11);
         
         test.print();
+        
+       BST<Integer> empty = new BST<Integer>();
+       empty.print();
+        
+       assertEquals(0,empty.findHeight());
         
     }
 }

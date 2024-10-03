@@ -66,6 +66,7 @@ public class Controller {
         DLList<Seminar> sem = idTree.searchExact(id);
         if (sem.isEmpty()) {
             System.out.println("REMOVE FAILED ID DOES NOT EXIST");
+            return;
         }
         for (Seminar s : sem) {
             idTree.delete(s.id(), id);
@@ -75,6 +76,7 @@ public class Controller {
                 keywordsTree.delete(k, id);
             }
         }
+        System.out.println("Record with ID "+id+ " successfully deleted from the database");
 
     }
 
@@ -119,7 +121,7 @@ public class Controller {
         for (Seminar s : sem) {
             System.out.println(s.toString());
         }
-        System.out.println(costTree.getNodesTraversed() + " nodes visited in this search");
+        System.out.println(datesTree.getNodesTraversed() + " nodes visited in this search");
     }
 
 

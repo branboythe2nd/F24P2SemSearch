@@ -7,6 +7,7 @@ public class BST<T extends Comparable<T>> {
     public BST() {
         setRoot(null);
         setNumOfRecords(0);
+        
     }
 
 
@@ -37,40 +38,45 @@ public class BST<T extends Comparable<T>> {
 
     public DLList<Seminar> searchRange(T lower, T higher) {
         DLList<Seminar> found = new DLList<Seminar>();
-        searchHelpRange(root, lower, higher, found, 0);
+        nodesTraversed = 0;
+        searchHelpRange(root, lower, higher, found );
+        
         return found;
     }
 
 
-    private int searchHelpRange(
+    private void searchHelpRange(
         Node<T> root,
         T lower,
         T higher,
-        DLList<Seminar> found, int nodes) {
+        DLList<Seminar> found) {
         if (root == null) {
-            return 0;
+            nodesTraversed++;
+            return;
         }
+        nodesTraversed++;
         int low = root.getData().compareTo(lower);
         int high = root.getData().compareTo(higher);
         if (low >= 0 && high <= 0) {
-            searchHelpRange(root.getLeft(), lower, higher, found, nodes + 1);
+            searchHelpRange(root.getLeft(), lower, higher, found);
             found.add(root.getSeminar());
-            searchHelpRange(root.getRight(), lower, higher, found, nodes + 1);
+            searchHelpRange(root.getRight(), lower, higher, found);
         }
         else if (low < 0) {
-            searchHelpRange(root.getRight(), lower, higher, found, nodes + 1);
+            searchHelpRange(root.getRight(), lower, higher, found);
         }
         else if (high > 0) {
-            searchHelpRange(root.getLeft(), lower, higher, found, nodes + 1);
+            searchHelpRange(root.getLeft(), lower, higher, found);
         }
-        return nodes;
+        
 
     }
 
 
-    public Seminar searchLocation(int x, int y, int radius) {
+    /*public Seminar searchLocation(int x, int y, int radius) {
         return null;
     }
+    */
 
 
     public void insert(T key, Seminar value) {

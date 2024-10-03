@@ -43,6 +43,29 @@ public class SemSearchTest extends TestCase {
 
         // Compare the two outputs
         assertFuzzyEquals(expectedOutput, actualOutput);
+        
 
     }
+    /**
+     * Get code coverage of the class declaration.
+     */
+    public void testSimple() throws Exception {
+        // Setting up all the parameters
+        String[] args = new String[2];
+        args[1] = "solutionTestData/test.txt";
+
+        // Invoke main method of our Graph Project
+        SemSearch.main(args);
+        
+        String actualOutput = systemOut().getHistory();
+
+        // Expected output from file
+        String expectedOutput = readFile(
+            "solutionTestData/testOut.txt");
+
+        // Compare the two outputs
+        assertFuzzyEquals(expectedOutput, actualOutput);
+
+    }
+    
 }
