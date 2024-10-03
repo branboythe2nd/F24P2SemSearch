@@ -43,11 +43,11 @@ public class SemSearch {
      * @throws FileNotFoundException 
      */
     public static void main(String[] args) throws FileNotFoundException {
-        processCommandFile(args[1]);
+        processCommandFile(args[0],args[1]);
     }
 
 
-    public static void processCommandFile(String fileName)
+    public static void processCommandFile(String worldSize, String fileName)
         throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(fileName));
         control = new Controller();
@@ -55,7 +55,7 @@ public class SemSearch {
             String line = scanner.nextLine().trim();
             if (!line.isEmpty()) {
                 if (line.startsWith("insert")) {
-                    processInsertCommand(scanner, line);
+                    processInsertCommand(scanner, line, worldSize);
                 }
                 else {
                     processCommand(line);
@@ -90,7 +90,8 @@ public class SemSearch {
 
     private static void processInsertCommand(
         Scanner scanner,
-        String firstLine) {
+        String firstLine,
+        String worldSize) {
         String[] commandParts = firstLine.split("\\s+");
         int id = Integer.parseInt(commandParts[1]);
 
@@ -107,7 +108,7 @@ public class SemSearch {
 
         Seminar sem = new Seminar(id, title, dateTime, length, x, y, cost,
             keywords, description);
-        control.insert(sem);
+        control.insert(sem,worldSize);
     }
 
 

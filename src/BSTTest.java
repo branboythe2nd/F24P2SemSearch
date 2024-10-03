@@ -198,7 +198,7 @@ public class BSTTest extends student.TestCase {
         
         DLList<Seminar> result = test.searchRange(5, 8);
         assertEquals(4, result.size());
-        assertEquals(13,test.getNodesTraversed());
+        assertEquals(10,test.getNodesTraversed());
         
     }
     public void testPrint()

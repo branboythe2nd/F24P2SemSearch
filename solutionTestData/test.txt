@@ -14,17 +14,5 @@ Computing Systems Research at VT
 high_performance_computing           grids     VT computer science
   Seminar about the      Computing systems research at      VT
 delete 1
-print id
-print cost
-print keyword
-print date
 delete 2
-print id
-print cost
-print keyword
-print date
 delete 10
-print id
-print cost
-print keyword
-print date

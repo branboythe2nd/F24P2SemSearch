@@ -40,7 +40,14 @@ public class Controller {
      * @param song
      *            the name of the song to insert
      */
-    public void insert(Seminar s) {
+    public void insert(Seminar s, String size) {
+        int worldSize = Integer.parseInt(size);
+        if(s.x()<0 || s.x()>=worldSize || s.y()<0 || s.y()>=worldSize)
+        {
+            System.out.println("Insert FAILED - Bad x, y coordinates: "+s.x()+", "+s.y());
+            return;
+        }
+        
         DLList<Seminar> sem = idTree.searchExact(s.id());
         if (sem.isEmpty()) {
             idTree.insert(s.id(), s);
@@ -65,7 +72,7 @@ public class Controller {
     public void delete(int id) {
         DLList<Seminar> sem = idTree.searchExact(id);
         if (sem.isEmpty()) {
-            System.out.println("REMOVE FAILED ID DOES NOT EXIST");
+            System.out.println("Delete FAILED -- There is no record with ID "+id);
             return;
         }
         for (Seminar s : sem) {

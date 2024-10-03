@@ -57,10 +57,15 @@ public class BST<T extends Comparable<T>> {
         nodesTraversed++;
         int low = root.getData().compareTo(lower);
         int high = root.getData().compareTo(higher);
-        if (low >= 0 && high <= 0) {
+        if (low >= 0 && high < 0) {
             searchHelpRange(root.getLeft(), lower, higher, found);
             found.add(root.getSeminar());
             searchHelpRange(root.getRight(), lower, higher, found);
+        }
+        else if (high==0)
+        {
+            searchHelpRange(root.getLeft(), lower, higher, found);
+            found.add(root.getSeminar());
         }
         else if (low < 0) {
             searchHelpRange(root.getRight(), lower, higher, found);
