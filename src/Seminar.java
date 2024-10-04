@@ -25,21 +25,39 @@ public class Seminar {
         // Nothing here
     }
 
+
     /**
      * Create a new Seminar object from the field data
      *
-     * @param tin    input title
-     * @param datein input date
-     * @param lin    input length
-     * @param kin    input keywords
-     * @param xin    input x coord
-     * @param yin    input y coord
-     * @param descin input description
-     * @param cin    input cost
-     * @param idin   input ID
+     * @param tin
+     *            input title
+     * @param datein
+     *            input date
+     * @param lin
+     *            input length
+     * @param kin
+     *            input keywords
+     * @param xin
+     *            input x coord
+     * @param yin
+     *            input y coord
+     * @param descin
+     *            input description
+     * @param cin
+     *            input cost
+     * @param idin
+     *            input ID
      */
-    public Seminar(int idin, String tin, String datein, int lin, short xin,
-        short yin, int cin, String[] kin, String descin) {
+    public Seminar(
+        int idin,
+        String tin,
+        String datein,
+        int lin,
+        short xin,
+        short yin,
+        int cin,
+        String[] kin,
+        String descin) {
         id = idin;
         title = tin;
         date = datein;
@@ -55,6 +73,7 @@ public class Seminar {
     // ----------------------------------------------------------
     /**
      * Returns the seminar ID field
+     * 
      * @return the ID field for the seminar
      */
     public int id() {
@@ -65,6 +84,7 @@ public class Seminar {
     // ----------------------------------------------------------
     /**
      * Return the seminar date
+     * 
      * @return the date field for the seminar
      */
     public String date() {
@@ -75,6 +95,7 @@ public class Seminar {
     // ----------------------------------------------------------
     /**
      * Return the seminar date
+     * 
      * @return the date field for the seminar
      */
     public int cost() {
@@ -85,6 +106,7 @@ public class Seminar {
     // ----------------------------------------------------------
     /**
      * Return the seminar keywords
+     * 
      * @return the keywords field for the seminar
      */
     public String[] keywords() {
@@ -95,6 +117,7 @@ public class Seminar {
     // ----------------------------------------------------------
     /**
      * Return the seminar x coordinate
+     * 
      * @return the x coordinate field for the seminar
      */
     public int x() {
@@ -105,6 +128,7 @@ public class Seminar {
     // ----------------------------------------------------------
     /**
      * Return the seminar y coordinate
+     * 
      * @return the y coordinate field for the seminar
      */
     public int y() {
@@ -123,8 +147,8 @@ public class Seminar {
             if (i != keywords.length - 1)
                 mykeys += ", ";
         }
-        return "ID: " + id + ", Title: " + title + "\nDate: " + date +
-            ", Length: " + length + ", X: " + x + ", Y: " + y + ", Cost: " +
-            cost + "\nDescription: " + desc + "\nKeywords: " + mykeys;
+        return "ID: " + id + ", Title: " + title + "\nDate: " + date
+            + ", Length: " + length + ", X: " + x + ", Y: " + y + ", Cost: "
+            + cost + "\nDescription: " + desc + "\nKeywords: " + mykeys;
     }
 }

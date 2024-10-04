@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 /**
  * The Controller class manages a graph structure representing artists and
  * songs.
@@ -16,10 +14,7 @@ public class Controller {
     private BST<String> keywordsTree;
 
     /**
-     * Constructs a Controller with the given length for hash tables and graph.
-     *
-     * @param length
-     *            the initial size of the hash tables and the graph
+     * Constructs a Controller
      */
     public Controller() {
         idTree = new BST<Integer>();
@@ -35,19 +30,20 @@ public class Controller {
      * duplicates.
      * Also checks and doubles the size of the hash table if necessary.
      *
-     * @param artist
-     *            the name of the artist to insert
-     * @param song
-     *            the name of the song to insert
+     * @param s
+     *            the seminar to be inserted
+     * @param size
+     *            the size of the world
      */
     public void insert(Seminar s, String size) {
         int worldSize = Integer.parseInt(size);
-        if(s.x()<0 || s.x()>=worldSize || s.y()<0 || s.y()>=worldSize)
-        {
-            System.out.println("Insert FAILED - Bad x, y coordinates: "+s.x()+", "+s.y());
+        if (s.x() < 0 || s.x() >= worldSize || s.y() < 0 || s
+            .y() >= worldSize) {
+            System.out.println("Insert FAILED - Bad x, y coordinates: " + s.x()
+                + ", " + s.y());
             return;
         }
-        
+
         DLList<Seminar> sem = idTree.searchExact(s.id());
         if (sem.isEmpty()) {
             idTree.insert(s.id(), s);
@@ -69,10 +65,17 @@ public class Controller {
     }
 
 
+    /**
+     * Deletes the id from all trees
+     * 
+     * @param id
+     *            id to be deleted
+     */
     public void delete(int id) {
         DLList<Seminar> sem = idTree.searchExact(id);
         if (sem.isEmpty()) {
-            System.out.println("Delete FAILED -- There is no record with ID "+id);
+            System.out.println("Delete FAILED -- There is no record with ID "
+                + id);
             return;
         }
         for (Seminar s : sem) {
@@ -83,11 +86,18 @@ public class Controller {
                 keywordsTree.delete(k, id);
             }
         }
-        System.out.println("Record with ID "+id+ " successfully deleted from the database");
+        System.out.println("Record with ID " + id
+            + " successfully deleted from the database");
 
     }
 
 
+    /**
+     * searches for the given ID
+     * 
+     * @param id
+     *            id to be found
+     */
     public void searchID(int id) {
         DLList<Seminar> sem = idTree.searchExact(id);
         if (sem.isEmpty()) {
@@ -103,6 +113,12 @@ public class Controller {
     }
 
 
+    /**
+     * searches for the given Keyword
+     * 
+     * @param key
+     *            keyword to be found
+     */
     public void searchKeyword(String key) {
         DLList<Seminar> sem = keywordsTree.searchExact(key);
         System.out.println("Seminars matching keyword " + key + ":");
@@ -112,44 +128,76 @@ public class Controller {
     }
 
 
+    /**
+     * searches for the given cost range
+     * 
+     * @param low
+     *            the lower bound
+     * @param high
+     *            the upper bound
+     */
     public void searchRange(int low, int high) {
         DLList<Seminar> sem = costTree.searchRange(low, high);
-        System.out.println("Seminars with costs in range " + low + " to " + high + ":");
+        System.out.println("Seminars with costs in range " + low + " to " + high
+            + ":");
         for (Seminar s : sem) {
             System.out.println(s.toString());
         }
-        System.out.println(costTree.getNodesTraversed() + " nodes visited in this search");
+        System.out.println(costTree.getNodesTraversed()
+            + " nodes visited in this search");
     }
 
 
+    /**
+     * searches for the given dates
+     * 
+     * @param low
+     *            lower date
+     * @param high
+     *            upper date
+     */
     public void searchRange(String low, String high) {
         DLList<Seminar> sem = datesTree.searchRange(low, high);
-        System.out.println("Seminars with dates in range " + low + " to " + high + ":");
+        System.out.println("Seminars with dates in range " + low + " to " + high
+            + ":");
         for (Seminar s : sem) {
             System.out.println(s.toString());
         }
-        System.out.println(datesTree.getNodesTraversed() + " nodes visited in this search");
+        System.out.println(datesTree.getNodesTraversed()
+            + " nodes visited in this search");
     }
 
 
+    /**
+     * returns the ID tree
+     */
     public void printId() {
         System.out.println("ID Tree:");
         idTree.print();
     }
 
 
+    /**
+     * returns the Keyword tree
+     */
     public void printKeyword() {
         System.out.println("Keyword Tree:");
         keywordsTree.print();
     }
 
 
+    /**
+     * returns the Cost tree
+     */
     public void printCost() {
         System.out.println("Cost Tree:");
         costTree.print();
     }
 
 
+    /**
+     * returns the Dates tree
+     */
     public void printDates() {
         System.out.println("Date Tree:");
         datesTree.print();

@@ -40,10 +40,10 @@ public class SemSearch {
     /**
      * @param args
      *            Command line parameters
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
-        processCommandFile(args[0],args[1]);
+        processCommandFile(args[0], args[1]);
     }
 
 
@@ -108,7 +108,7 @@ public class SemSearch {
 
         Seminar sem = new Seminar(id, title, dateTime, length, x, y, cost,
             keywords, description);
-        control.insert(sem,worldSize);
+        control.insert(sem, worldSize);
     }
 
 

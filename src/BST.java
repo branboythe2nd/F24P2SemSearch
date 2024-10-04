@@ -1,16 +1,37 @@
 
+/**
+ * A generic Binary Search Tree (BST) class that stores records of type T.
+ * 
+ * @author Brantson and Adarsh
+ * @version 10/03/2024
+ * 
+ * @param <T>
+ *            the type of elements stored in the BST, which must be comparable.
+ */
 public class BST<T extends Comparable<T>> {
+
+    private Node<T> root;
     private int numOfRecords;
     private int nodesTraversed;
-    private Node<T> root;
 
+    /**
+     * Constructs an empty BST with no root node and zero records.
+     */
     public BST() {
         setRoot(null);
         setNumOfRecords(0);
-        
     }
 
 
+    /**
+     * Searches the tree for nodes with a value that exactly matches the
+     * provided value.
+     * 
+     * @param value
+     *            the value to search for in the tree.
+     * @return a doubly linked list of Seminar objects associated with nodes
+     *         that contain the specified value.
+     */
     public DLList<Seminar> searchExact(T value) {
         DLList<Seminar> found = new DLList<Seminar>();
         searchHelp(root, value, found);
@@ -18,144 +39,215 @@ public class BST<T extends Comparable<T>> {
     }
 
 
-    private void searchHelp(Node<T> root, T value, DLList<Seminar> found) {
-        if (root == null) {
+    /**
+     * A helper method that recursively searches the tree for nodes with a value
+     * that matches the provided value.
+     * 
+     * @param node
+     *            the current node in the recursion.
+     * @param value
+     *            the value to search for.
+     * @param found
+     *            the list of Seminar objects found so far that match the search
+     *            value.
+     */
+    private void searchHelp(Node<T> node, T value, DLList<Seminar> found) {
+        if (node == null) {
             return;
         }
-        int c = root.getData().compareTo(value);
+        int c = node.getData().compareTo(value);
         if (c > 0) {
-            searchHelp(root.getLeft(), value, found);
+            searchHelp(node.getLeft(), value, found);
         }
         else if (c < 0) {
-            searchHelp(root.getRight(), value, found);
+            searchHelp(node.getRight(), value, found);
         }
         else {
-            searchHelp(root.getLeft(), value, found);
-            found.add(root.getSeminar());
+            searchHelp(node.getLeft(), value, found);
+            found.add(node.getSeminar());
         }
     }
 
 
+    /**
+     * Searches the tree for nodes with values within a given range [lower,
+     * higher].
+     * 
+     * @param lower
+     *            the lower bound of the search range.
+     * @param higher
+     *            the upper bound of the search range.
+     * @return a doubly linked list of Seminar objects associated with nodes
+     *         that fall within the specified range.
+     */
     public DLList<Seminar> searchRange(T lower, T higher) {
         DLList<Seminar> found = new DLList<Seminar>();
         nodesTraversed = 0;
-        searchHelpRange(root, lower, higher, found );
-        
+        searchHelpRange(root, lower, higher, found);
         return found;
     }
 
 
+    /**
+     * A helper method that recursively searches the tree for nodes within a
+     * specified range.
+     * 
+     * @param node
+     *            the current node in the recursion.
+     * @param lower
+     *            the lower bound of the search range.
+     * @param higher
+     *            the upper bound of the search range.
+     * @param found
+     *            the list of Seminar objects found so far within the range.
+     */
     private void searchHelpRange(
-        Node<T> root,
+        Node<T> node,
         T lower,
         T higher,
         DLList<Seminar> found) {
-        if (root == null) {
+        if (node == null) {
             nodesTraversed++;
             return;
         }
         nodesTraversed++;
-        int low = root.getData().compareTo(lower);
-        int high = root.getData().compareTo(higher);
+        int low = node.getData().compareTo(lower);
+        int high = node.getData().compareTo(higher);
         if (low >= 0 && high < 0) {
-            searchHelpRange(root.getLeft(), lower, higher, found);
-            found.add(root.getSeminar());
-            searchHelpRange(root.getRight(), lower, higher, found);
+            searchHelpRange(node.getLeft(), lower, higher, found);
+            found.add(node.getSeminar());
+            searchHelpRange(node.getRight(), lower, higher, found);
         }
-        else if (high==0)
-        {
-            searchHelpRange(root.getLeft(), lower, higher, found);
-            found.add(root.getSeminar());
+        else if (high == 0) {
+            searchHelpRange(node.getLeft(), lower, higher, found);
+            found.add(node.getSeminar());
         }
         else if (low < 0) {
-            searchHelpRange(root.getRight(), lower, higher, found);
+            searchHelpRange(node.getRight(), lower, higher, found);
         }
         else if (high > 0) {
-            searchHelpRange(root.getLeft(), lower, higher, found);
+            searchHelpRange(node.getLeft(), lower, higher, found);
         }
-        
-
     }
 
 
-    /*public Seminar searchLocation(int x, int y, int radius) {
-        return null;
-    }
-    */
-
-
+    /**
+     * Inserts a new node with the specified key and associated Seminar value
+     * into the tree.
+     * 
+     * @param key
+     *            the key value of the node to be inserted.
+     * @param value
+     *            the Seminar object associated with the node.
+     */
     public void insert(T key, Seminar value) {
         root = insertHelp(root, key, value);
         numOfRecords++;
     }
 
 
-    private Node<T> insertHelp(Node<T> root, T key, Seminar value) {
-        if (root == null) {
-            root = new Node<T>(key, value, null, null);
-            return root;
+    /**
+     * A helper method that recursively inserts a new node into the tree.
+     * 
+     * @param node
+     *            the current node in the recursion.
+     * @param key
+     *            the key value of the node to be inserted.
+     * @param value
+     *            the Seminar object associated with the node.
+     * @return the newly inserted node.
+     */
+    private Node<T> insertHelp(Node<T> node, T key, Seminar value) {
+        if (node == null) {
+            node = new Node<T>(key, value, null, null);
+            return node;
         }
-        int out = root.getData().compareTo(key);
+        int out = node.getData().compareTo(key);
         if (out > 0) {
-            root.setLeft(insertHelp(root.getLeft(), key, value));
+            node.setLeft(insertHelp(node.getLeft(), key, value));
         }
         else if (out < 0) {
-            root.setRight(insertHelp(root.getRight(), key, value));
+            node.setRight(insertHelp(node.getRight(), key, value));
         }
         else {
-            if (root.getLeft() == null) {
-                root.setLeft(insertHelp(root.getLeft(), key, value));
+            if (node.getLeft() == null) {
+                node.setLeft(insertHelp(node.getLeft(), key, value));
             }
             else {
-                insertHelp(root.getLeft(), key, value);
+                insertHelp(node.getLeft(), key, value);
             }
         }
-        return root;
-
+        return node;
     }
 
 
+    /**
+     * Deletes the node with the specified key and ID from the tree.
+     * 
+     * @param key
+     *            the key value of the node to be deleted.
+     * @param id
+     *            the ID of the Seminar object associated with the node to be
+     *            deleted.
+     */
     public void delete(T key, int id) {
         root = deleteHelp(root, key, id);
         numOfRecords--;
     }
 
 
-    private Node<T> deleteHelp(Node<T> root, T key, int id) {
-        if (root == null) {
+    /**
+     * A helper method that recursively deletes a node from the tree.
+     * 
+     * @param node
+     *            the current node in the recursion.
+     * @param key
+     *            the key value of the node to be deleted.
+     * @param id
+     *            the ID of the Seminar object associated with the node to be
+     *            deleted.
+     * @return the node after deletion.
+     */
+    private Node<T> deleteHelp(Node<T> node, T key, int id) {
+        if (node == null) {
             return null;
         }
-        int out = root.getData().compareTo(key);
+        int out = node.getData().compareTo(key);
         if (out > 0) {
-            root.setLeft(deleteHelp(root.getLeft(), key, id));
+            node.setLeft(deleteHelp(node.getLeft(), key, id));
         }
         else if (out < 0) {
-            root.setRight(deleteHelp(root.getRight(), key, id));
+            node.setRight(deleteHelp(node.getRight(), key, id));
         }
         else {
-            if (root.getSeminar().id() == id) {
-                if (root.getLeft() == null) {
-                    return root.getRight();
+            if (node.getSeminar().id() == id) {
+                if (node.getLeft() == null) {
+                    return node.getRight();
                 }
-                else if (root.getRight() == null) {
-                    return root.getLeft();
+                else if (node.getRight() == null) {
+                    return node.getLeft();
                 }
                 else {
-                    Node<T> max = findMax(root.getLeft());
-                    root.setData(max.getData());
-                    root.setSeminar(max.getSeminar());
-                    root.setLeft(deleteHelp(root.getLeft(), max.getData(), max
+                    Node<T> max = findMax(node.getLeft());
+                    node.setData(max.getData());
+                    node.setSeminar(max.getSeminar());
+                    node.setLeft(deleteHelp(node.getLeft(), max.getData(), max
                         .getSeminar().id()));
                 }
             }
             else {
-                deleteHelp(root.getRight(), key, id);
+                deleteHelp(node.getRight(), key, id);
             }
         }
-        return root;
+        return node;
     }
 
 
+    /**
+     * Finds the height of the tree.
+     * 
+     * @return the height of the tree, or 0 if the tree is empty.
+     */
     public int findHeight() {
         if (this.getNumOfRecords() == 0) {
             return 0;
@@ -166,23 +258,28 @@ public class BST<T extends Comparable<T>> {
     }
 
 
-    private int findHeightHelp(Node<T> root) {
-        if (root == null) {
+    /**
+     * A helper method that recursively calculates the height of the tree.
+     * 
+     * @param node
+     *            the current node in the recursion.
+     * @return the height of the subtree rooted at the given node.
+     */
+    private int findHeightHelp(Node<T> node) {
+        if (node == null) {
             return 0;
         }
-        int right = findHeightHelp(root.getLeft());
-        int left = findHeightHelp(root.getRight());
+        int right = findHeightHelp(node.getLeft());
+        int left = findHeightHelp(node.getRight());
 
-        if (left > right) {
-            return left + 1;
-        }
-        else {
-            return right + 1;
-        }
-
+        return Math.max(left, right) + 1;
     }
 
 
+    /**
+     * Prints the tree's structure and the number of records.
+     * If the tree is empty, prints a message indicating that.
+     */
     public void print() {
         if (numOfRecords == 0) {
             System.out.println("This tree is Empty");
@@ -192,12 +289,21 @@ public class BST<T extends Comparable<T>> {
             printHelp(root, height, 0);
             System.out.println("Number of Records: " + numOfRecords);
         }
-
     }
 
 
-    private void printHelp(Node<T> root, int h, int level) {
-        if (root == null) {
+    /**
+     * A helper method that recursively prints the structure of the tree.
+     * 
+     * @param node
+     *            the current node in the recursion.
+     * @param h
+     *            the total height of the tree.
+     * @param level
+     *            the current level in the tree.
+     */
+    private void printHelp(Node<T> node, int h, int level) {
+        if (node == null) {
             for (int i = 0; i < (h - level); i++) {
                 System.out.print("    ");
             }
@@ -205,7 +311,7 @@ public class BST<T extends Comparable<T>> {
             return;
         }
 
-        printHelp(root.getLeft(), h, level + 1);
+        printHelp(node.getLeft(), h, level + 1);
 
         for (int i = 0; i < (h - level); i++) {
             System.out.print("    ");
@@ -214,42 +320,77 @@ public class BST<T extends Comparable<T>> {
         for (int i = 0; i < (h - level); i++) {
             System.out.print("    ");
         }
-        System.out.println("(" + root.getData() + ")");
+        System.out.println("(" + node.getData() + ")");
         for (int i = 0; i < (h - level); i++) {
             System.out.print("    ");
         }
         System.out.println("/");
-        printHelp(root.getRight(), h, level + 1);
+        printHelp(node.getRight(), h, level + 1);
     }
 
 
-    private Node<T> findMax(Node<T> root) {
-        while (root.getRight() != null) {
-            root = root.getRight();
+    /**
+     * finds the max value in a subtree
+     * 
+     * @param node
+     *            the root node
+     * @return the max value/node
+     */
+    private Node<T> findMax(Node<T> node) {
+        while (node.getRight() != null) {
+            node = node.getRight();
         }
-        return root;
+        return node;
     }
 
 
+    /**
+     * Retrieves the root node of the binary search tree.
+     *
+     * @return the root node of the tree
+     */
     public Node<T> getRoot() {
         return root;
     }
 
 
-    public void setRoot(Node<T> root) {
-        this.root = root;
+    /**
+     * Sets the root node of the binary search tree.
+     *
+     * @param node
+     *            the node to set as the root of the tree
+     */
+    public void setRoot(Node<T> node) {
+        root = node;
     }
 
 
+    /**
+     * Retrieves the number of records in the binary search tree.
+     *
+     * @return the number of records currently stored in the tree
+     */
     public int getNumOfRecords() {
         return numOfRecords;
     }
 
 
+    /**
+     * Sets the number of records in the binary search tree.
+     *
+     * @param numOfRecords
+     *            the number of records to set for the tree
+     */
     public void setNumOfRecords(int numOfRecords) {
         this.numOfRecords = numOfRecords;
     }
-    
+
+
+    /**
+     * Retrieves the number of nodes traversed during the last range search.
+     *
+     * @return the number of nodes traversed in the tree
+     */
     public int getNodesTraversed() {
         return nodesTraversed;
     }

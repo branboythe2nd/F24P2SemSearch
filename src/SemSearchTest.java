@@ -22,7 +22,7 @@ public class SemSearchTest extends TestCase {
         return new String(encoded);
     }
 
-    
+
     /**
      * Get code coverage of the class declaration.
      */
@@ -39,14 +39,14 @@ public class SemSearchTest extends TestCase {
         String actualOutput = systemOut().getHistory();
 
         // Expected output from file
-        String expectedOutput = readFile(
-            "solutionTestData/output.txt");
+        String expectedOutput = readFile("solutionTestData/output.txt");
 
         // Compare the two outputs
         assertFuzzyEquals(expectedOutput, actualOutput);
-        
 
     }
+
+
     /**
      * Get code coverage of the class declaration.
      */
@@ -58,16 +58,15 @@ public class SemSearchTest extends TestCase {
 
         // Invoke main method of our Graph Project
         SemSearch.main(args);
-        
+
         String actualOutput = systemOut().getHistory();
 
         // Expected output from file
-        String expectedOutput = readFile(
-            "solutionTestData/testOut.txt");
+        String expectedOutput = readFile("solutionTestData/testOut.txt");
 
         // Compare the two outputs
         assertFuzzyEquals(expectedOutput, actualOutput);
 
     }
-    
+
 }
