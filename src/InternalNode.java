@@ -1,29 +1,28 @@
 
 public class InternalNode implements BinNode{
     
-    private LeafNode left;
-    private LeafNode right;
+    private BinNode left;
+    private BinNode right;
     
-    public InternalNode(LeafNode leftNode, LeafNode rightNode) {
+    public InternalNode(BinNode leftNode, BinNode rightNode) {
         setLeft(leftNode);
         setRight(rightNode);
     }
-    public LeafNode getLeft() {
+    public BinNode getLeft() {
         return left;
     }
-    public void setLeft(LeafNode left) {
+    public void setLeft(BinNode left) {
         this.left = left;
     }
-    public LeafNode getRight() {
+    public BinNode getRight() {
         return right;
     }
-    public void setRight(LeafNode right) {
+    public void setRight(BinNode right) {
         this.right = right;
     }
     @Override
-    public boolean isLeaf() {
-        // TODO Auto-generated method stub
-        return false;
+    public BinNode insert(Seminar sem, int x, int y) {
+        return null;
     }
 
 }

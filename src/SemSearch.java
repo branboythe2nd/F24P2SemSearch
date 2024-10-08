@@ -50,7 +50,7 @@ public class SemSearch {
     public static void processCommandFile(String worldSize, String fileName)
         throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(fileName));
-        control = new Controller();
+        control = new Controller(Integer.parseInt(worldSize));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
             if (!line.isEmpty()) {
@@ -164,7 +164,7 @@ public class SemSearch {
                 control.printKeyword();
                 break;
             case "location":
-                // Print by location logic
+                control.printLocation();
                 break;
             case "cost":
                 control.printCost();

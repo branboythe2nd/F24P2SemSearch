@@ -139,3 +139,19 @@ Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45
 Description: This seminar will present an overview of HCI research at VT
 Keywords: HCI, Computer_Science, VT, Virginia_Tech
 7 nodes visited in this search
+Location Tree:
+                            (I)
+                        (E)
+                        (I)
+                    (E)
+                    (I)
+                (E)
+                (I)
+            (E)
+            (I)
+        (Leaf with 1 objects: 10)
+        (I)
+    (E)
+    (I)
+(Leaf with 2 objects: 1 2)
+(Leaf with 1 objects: 3)

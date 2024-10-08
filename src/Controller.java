@@ -12,15 +12,17 @@ public class Controller {
     private BST<Integer> costTree;
     private BST<String> datesTree;
     private BST<String> keywordsTree;
+    private BinTree locationTree;
 
     /**
      * Constructs a Controller
      */
-    public Controller() {
+    public Controller(int worldSize) {
         idTree = new BST<Integer>();
         costTree = new BST<Integer>();
         datesTree = new BST<String>();
         keywordsTree = new BST<String>();
+        locationTree = new BinTree(worldSize);
     }
 
 
@@ -49,6 +51,7 @@ public class Controller {
             idTree.insert(s.id(), s);
             costTree.insert(s.cost(), s);
             datesTree.insert(s.date(), s);
+            locationTree.insert(s.x(), s.y(), s);
             for (String word : s.keywords()) {
                 keywordsTree.insert(word, s);
             }
@@ -201,6 +204,14 @@ public class Controller {
     public void printDates() {
         System.out.println("Date Tree:");
         datesTree.print();
+    }
+    
+    /**
+     * returns the Dates tree
+     */
+    public void printLocation() {
+        System.out.println("Location Tree:");
+        locationTree.print();
     }
 
 }

@@ -1,4 +1,4 @@
 
 public interface BinNode {
-    public boolean isLeaf();
+    public BinNode insert(Seminar sem, int x, int y);                          
 }
