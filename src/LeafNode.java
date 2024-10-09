@@ -10,6 +10,10 @@ public class LeafNode implements BinNode{
         yValue = y;
         semList = new DLList<Seminar>();
     }
+    public void insert(Seminar s)
+    {
+        semList.add(s);
+    }
 
     public int getxValue() {
         return xValue;
@@ -36,7 +40,19 @@ public class LeafNode implements BinNode{
     }
     @Override
     public BinNode insert(Seminar sem, int x, int y) {
-        return new InternalNode(null, null);
+        return null;
+    }
+    public String idList(DLList<Seminar> semList) {
+        String result = "";
+        for (Seminar s : semList) {
+            result += " ";
+            result += s.id();
+        }
+        return result;
+    }
+    public String toString() {
+        return "(Leaf with " + getSemList().size() + 
+        " objects:" + idList(getSemList()) + ")";
     }
 
 }

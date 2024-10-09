@@ -169,6 +169,23 @@ public class Controller {
         System.out.println(datesTree.getNodesTraversed()
             + " nodes visited in this search");
     }
+    
+    public void searchLocation(int x, int y , int radius)
+    {
+        DLList<LeafNode> found = locationTree.search(x, y, radius);
+        //System.out.println(found);
+        System.out.println("Seminars within " + radius + " units of " + x+", "+y
+            + ":");
+        for(LeafNode l : found)
+        {
+            for(Seminar s: l.getSemList())
+            {
+                System.out.println("Found a record with key value " + s.id()+" at " + l.getxValue()+", "+l.getyValue());
+            }
+        }
+        System.out.println(locationTree.getNodesTraversed()
+            + " nodes visited in this search");
+    }
 
 
     /**

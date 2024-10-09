@@ -139,7 +139,7 @@ public class SemSearch {
                 short x = Short.parseShort(commandParts[2]);
                 short y = Short.parseShort(commandParts[3]);
                 int radius = Integer.parseInt(commandParts[4]);
-                // Search by location logic
+                control.searchLocation(x,y,radius);
                 break;
             case "date":
                 String startDate = commandParts[2];

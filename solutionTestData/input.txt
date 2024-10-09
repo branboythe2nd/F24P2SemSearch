@@ -30,5 +30,11 @@ Overview of HPC and CSE Research at VT
  		print 		keyword
  	search keyword VT
 search cost 30 50
+search location -1 0 1
+search location -1 0 2000
+
+search location 10 10 0
+search location 11 11 0
+search location 10 10 20
 
 print location
