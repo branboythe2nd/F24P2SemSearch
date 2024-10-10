@@ -85,7 +85,7 @@ public class BinTreeTest extends student.TestCase {
     public void testInsertMultipleNodes() {
         binTree.insert(100, 150, sem1);
         binTree.insert(110, 160, sem2);
-        //binTree.insert(70, 170, sem3);
+        binTree.insert(70, 170, sem3);
         assertEquals(3, binTree.getNumOfRecords());
     }
 
@@ -143,7 +143,7 @@ public class BinTreeTest extends student.TestCase {
         binTree.insert(100, 150, sem1);
         binTree.insert(110, 160, sem2);
         binTree.insert(120, 170, sem3);
-        assertEquals(2, binTree.findHeight());
+        assertEquals(4, binTree.findHeight());
     }
 
 

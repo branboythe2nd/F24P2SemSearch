@@ -15,7 +15,7 @@ public class BinTree {
 
 
     public void insert(int x, int y, Seminar sem) {
-        root = insertHelp(root, sem, worldSize, worldSize, 0);
+        root = insertHelp(root, sem, 0, 0, worldSize, worldSize, 0);
         numOfRecords++;
     }
 
@@ -23,6 +23,8 @@ public class BinTree {
     private BinNode insertHelp(
         BinNode node,
         Seminar sem,
+        int x,
+        int y,
         int worldX,
         int worldY,
         int depth) {
@@ -39,33 +41,34 @@ public class BinTree {
             }
             InternalNode iNode = new InternalNode(emptyNode, emptyNode);
             for (Seminar s : copy.getSemList()) {
-                iNode = (InternalNode)insertHelp(iNode, s, worldX, worldY,
+                iNode = (InternalNode)insertHelp(iNode, s, x, y, worldX, worldY,
                     depth);
             }
-            iNode = (InternalNode)insertHelp(iNode, sem, worldX, worldY, depth);
+            iNode = (InternalNode)insertHelp(iNode, sem, x, y, worldX, worldY,
+                depth);
 
             return iNode;
         }
         if (node instanceof InternalNode) {
             InternalNode i = (InternalNode)node;
             if (depth % 2 == 0) {
-                if (sem.x() >= worldX) {
-                    i.setRight(insertHelp(i.getRight(), sem, worldX + worldX/2, worldY,
-                        depth + 1));
+                if (sem.x() >= x + worldX / 2) {
+                    i.setRight(insertHelp(i.getRight(), sem, x + worldX / 2, y,
+                        worldX / 2, worldY, depth + 1));
                 }
                 else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, worldX/2, worldY,
-                        depth + 1));
+                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX / 2,
+                        worldY, depth + 1));
                 }
             }
             else {
-                if (sem.y() >= worldY) {
-                    i.setRight(insertHelp(i.getRight(), sem, worldX, worldY + worldY/2,
-                        depth + 1));
+                if (sem.y() >= y + worldY / 2) {
+                    i.setRight(insertHelp(i.getRight(), sem, x, y + worldY / 2,
+                        worldX, worldY / 2, depth + 1));
                 }
                 else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, worldX, worldY/2,
-                        depth + 1));
+                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX, worldY
+                        / 2, depth + 1));
                 }
             }
 
@@ -83,7 +86,7 @@ public class BinTree {
         }
         DLList<LeafNode> found = new DLList<LeafNode>();
         setNodesTraversed(0);
-        searchHelp(found, root, x, y, radius, 0, worldSize/2, worldSize/2);
+        searchHelp(found, root, x, y, radius, 0, worldSize / 2, worldSize / 2);
         return found;
     }
 
@@ -93,7 +96,10 @@ public class BinTree {
         BinNode root,
         int x,
         int y,
-        int radius, int depth, int worldX, int worldY) {
+        int radius,
+        int depth,
+        int worldX,
+        int worldY) {
         if (root instanceof EmptyNode) {
             nodesTraversed++;
             return;
@@ -119,25 +125,28 @@ public class BinTree {
 
             if (depth % 2 == 0) {
                 if ((x - radius) <= worldX) {
-                    searchHelp(found, i.getLeft(), x, y, radius, depth + 1, worldX - worldX/2, worldY);
+                    searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
+                        worldX - worldX / 2, worldY);
                 }
                 if ((x + radius > worldX)) {
-                    searchHelp(found, i.getRight(), x, y, radius, depth + 1, worldX + worldX/2, worldY);
+                    searchHelp(found, i.getRight(), x, y, radius, depth + 1,
+                        worldX + worldX / 2, worldY);
                 }
             }
             else {
                 if ((y - radius) <= worldY) {
-                    searchHelp(found, i.getLeft(), x, y, radius, depth + 1, worldX, worldY - worldY/2);
+                    searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
+                        worldX, worldY - worldY / 2);
                 }
                 if ((y + radius) > worldY) {
-                    searchHelp(found, i.getRight(), x, y, radius, depth + 1, worldX, worldY + worldY/2);
+                    searchHelp(found, i.getRight(), x, y, radius, depth + 1,
+                        worldX, worldY + worldY / 2);
                 }
             }
 
         }
-        
-    }
 
+    }
 
 
     /**
