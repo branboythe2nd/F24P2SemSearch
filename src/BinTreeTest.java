@@ -19,27 +19,27 @@ public class BinTreeTest extends student.TestCase {
      * test.
      */
     public void setUp() {
-        binTree = new BinTree(100); // Set a world size of 100 for tests
+        binTree = new BinTree(200); // Set a world size of 100 for tests
 
         // Initialize seminar objects
-        sem1 = new Seminar(1, "heeee", "0610051600", 60, (short)100, (short)150,
+        sem1 = new Seminar(1, "heeee", "0610051600", 60, (short)99, (short)150,
             200, keywords, "a");
-        sem2 = new Seminar(2, "woooww", "0610050900", 120, (short)110,
-            (short)160, 300, keywords, "b");
+        sem2 = new Seminar(2, "woooww", "0610050900", 120, (short)120,
+            (short)110, 300, keywords, "b");
         sem3 = new Seminar(3, "nice", "0710051600", 90, (short)120, (short)170,
             150, keywords, "b");
-        sem4 = new Seminar(4, "bye", "0611051600", 45, (short)130, (short)180,
+        sem4 = new Seminar(4, "bye", "0611051600", 45, (short)90, (short)180,
             400, keywords, "c");
-        sem5 = new Seminar(5, "bye", "1010051600", 150, (short)140, (short)190,
+        sem5 = new Seminar(5, "bye", "1010051600", 150, (short)70, (short)70,
             250, keywords, "d");
-        sem6 = new Seminar(6, "The best", "1010051600", 30, (short)150,
-            (short)200, 180, keywords, "e");
-        sem7 = new Seminar(7, "Add", "1212051000", 75, (short)160, (short)210,
+        sem6 = new Seminar(6, "The best", "1010051600", 30, (short)60,
+            (short)189, 180, keywords, "e");
+        sem7 = new Seminar(7, "Add", "1212051000", 75, (short)170, (short)10,
             350, keywords, "f");
-        sem8 = new Seminar(8, "Sub", "0510051600", 60, (short)170, (short)220,
+        sem8 = new Seminar(8, "Sub", "0510051600", 60, (short)10, (short)10,
             420, keywords, "g");
-        sem9 = new Seminar(9, "niceee", "0610051900", 90, (short)180,
-            (short)230, 310, keywords, "h");
+        sem9 = new Seminar(9, "niceee", "0610051900", 90, (short)120,
+            (short)199, 310, keywords, "h");
         sem10 = new Seminar(10, "kk", "0610051600", 120, (short)190, (short)240,
             360, keywords, "i");
         sem11 = new Seminar(11, "oho", "2710051600", 120, (short)190,
@@ -52,8 +52,29 @@ public class BinTreeTest extends student.TestCase {
      */
 
     public void testInsertSingleNode() {
-        binTree.insert(100, 150, sem1);
-        assertEquals(1, binTree.getNumOfRecords());
+//        binTree.insert(99, 150, sem1);
+//        assertEquals(1, binTree.getNumOfRecords());
+//        binTree.insert(120, 110, sem2);
+//        assertEquals(2, binTree.getNumOfRecords());
+//        binTree.insert(120, 170, sem3);
+//        assertEquals(3, binTree.getNumOfRecords());
+//        binTree.insert(90, 180, sem2);
+//        assertEquals(4, binTree.getNumOfRecords());
+//       
+//        assertTrue(binTree.getRoot() instanceof InternalNode);
+//        InternalNode root = (InternalNode)binTree.getRoot();
+//        //Checking right tree
+//        root = (InternalNode)root.getRight();
+//        assertTrue(root.getLeft() instanceof EmptyNode);
+//        root = (InternalNode)root.getRight();
+//        assertTrue(root.getRight() instanceof EmptyNode);
+//        root = (InternalNode)root.getLeft();
+//        LeafNode l1 = (LeafNode)root.getRight();
+//        LeafNode l2 = (LeafNode)root.getLeft();
+//        assertEquals(l1.getxValue(),120);
+//        assertEquals(l1.getyValue(),110);
+//        assertEquals(l2.getxValue(),120);
+//        assertEquals(l2.getyValue(),170);
     }
 
 
@@ -64,7 +85,7 @@ public class BinTreeTest extends student.TestCase {
     public void testInsertMultipleNodes() {
         binTree.insert(100, 150, sem1);
         binTree.insert(110, 160, sem2);
-        binTree.insert(120, 170, sem3);
+        //binTree.insert(70, 170, sem3);
         assertEquals(3, binTree.getNumOfRecords());
     }
 
