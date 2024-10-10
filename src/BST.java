@@ -236,7 +236,7 @@ public class BST<T extends Comparable<T>> {
                 }
             }
             else {
-                deleteHelp(node.getRight(), key, id);
+                deleteHelp(node.getLeft(), key, id);
             }
         }
         return node;
