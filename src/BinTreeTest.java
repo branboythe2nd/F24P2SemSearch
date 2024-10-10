@@ -6,12 +6,24 @@
  * and boundary conditions. It ensures that all operations like insertion,
  * searching, and height
  * calculation work correctly.
+ * 
+ * @author Brantson and Adarsh
+ * @version 10//10/2024
  */
 public class BinTreeTest extends student.TestCase {
 
     private BinTree binTree;
-    private Seminar sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8, sem9, sem10,
-        sem11;
+    private Seminar sem1;
+    private Seminar sem2;
+    private Seminar sem3;
+    private Seminar sem4;
+    private Seminar sem5;
+    private Seminar sem6;
+    private Seminar sem7;
+    private Seminar sem8;
+    private Seminar sem9;
+    private Seminar sem10;
+    private Seminar sem11;
     private String[] keywords = { "1", "2" };
 
     /**
@@ -52,29 +64,29 @@ public class BinTreeTest extends student.TestCase {
      */
 
     public void testInsertSingleNode() {
-//        binTree.insert(99, 150, sem1);
-//        assertEquals(1, binTree.getNumOfRecords());
-//        binTree.insert(120, 110, sem2);
-//        assertEquals(2, binTree.getNumOfRecords());
-//        binTree.insert(120, 170, sem3);
-//        assertEquals(3, binTree.getNumOfRecords());
-//        binTree.insert(90, 180, sem2);
-//        assertEquals(4, binTree.getNumOfRecords());
-//       
-//        assertTrue(binTree.getRoot() instanceof InternalNode);
-//        InternalNode root = (InternalNode)binTree.getRoot();
-//        //Checking right tree
-//        root = (InternalNode)root.getRight();
-//        assertTrue(root.getLeft() instanceof EmptyNode);
-//        root = (InternalNode)root.getRight();
-//        assertTrue(root.getRight() instanceof EmptyNode);
-//        root = (InternalNode)root.getLeft();
-//        LeafNode l1 = (LeafNode)root.getRight();
-//        LeafNode l2 = (LeafNode)root.getLeft();
-//        assertEquals(l1.getxValue(),120);
-//        assertEquals(l1.getyValue(),110);
-//        assertEquals(l2.getxValue(),120);
-//        assertEquals(l2.getyValue(),170);
+        binTree.insert(99, 150, sem1);
+        assertEquals(1, binTree.getNumOfRecords());
+        binTree.insert(120, 110, sem2);
+        assertEquals(2, binTree.getNumOfRecords());
+        binTree.insert(120, 170, sem3);
+        assertEquals(3, binTree.getNumOfRecords());
+        binTree.insert(90, 180, sem2);
+        assertEquals(4, binTree.getNumOfRecords());
+
+        assertTrue(binTree.getRoot() instanceof InternalNode);
+        InternalNode root = (InternalNode)binTree.getRoot();
+        // Checking right tree
+        root = (InternalNode)root.getRight();
+        assertTrue(root.getLeft() instanceof EmptyNode);
+        root = (InternalNode)root.getRight();
+        assertTrue(root.getRight() instanceof EmptyNode);
+        root = (InternalNode)root.getLeft();
+        LeafNode l1 = (LeafNode)root.getRight();
+        LeafNode l2 = (LeafNode)root.getLeft();
+        assertEquals(l1.getxValue(), 120);
+        assertEquals(l1.getyValue(), 170);
+        assertEquals(l2.getxValue(), 120);
+        assertEquals(l2.getyValue(), 110);
     }
 
 
@@ -190,6 +202,5 @@ public class BinTreeTest extends student.TestCase {
         binTree.insert(110, 160, sem2);
         binTree.insert(120, 170, sem3);
 
-        
     }
 }

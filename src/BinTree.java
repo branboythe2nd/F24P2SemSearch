@@ -1,4 +1,15 @@
-
+/**
+ * The BinTree class implements a 2-dimensional binary search tree with the
+ * ability to insert, search,
+ * and manage seminars by their (x, y) coordinates. The tree supports nodes of
+ * three types:
+ * EmptyNode, LeafNode, and InternalNode. It maintains a dynamic structure and
+ * allows searching
+ * for nodes within a specified radius.
+ * 
+ * @author Brantson and Adarsh
+ * @version 10/10/2024
+ */
 public class BinTree {
     private BinNode root;
     private int worldSize;
@@ -6,6 +17,13 @@ public class BinTree {
     private int numOfRecords;
     private int nodesTraversed;
 
+    /**
+     * Constructs an empty BinTree with the specified world size. The root is
+     * initialized as an EmptyNode.
+     *
+     * @param size
+     *            the size of the world in which the tree operates
+     */
     public BinTree(int size) {
         setWorldSize(size);
         emptyNode = new EmptyNode();
@@ -14,12 +32,46 @@ public class BinTree {
     }
 
 
+    /**
+     * Inserts a seminar into the binary search tree based on its (x, y)
+     * coordinates.
+     * Each insertion increases the record count.
+     *
+     * @param x
+     *            the x-coordinate of the seminar
+     * @param y
+     *            the y-coordinate of the seminar
+     * @param sem
+     *            the seminar to be inserted into the tree
+     */
     public void insert(int x, int y, Seminar sem) {
         root = insertHelp(root, sem, 0, 0, worldSize, worldSize, 0);
         numOfRecords++;
     }
 
 
+    /**
+     * Helper method for inserting a seminar into the tree recursively. This
+     * method splits
+     * the world space and decides where to place the node based on the depth
+     * and (x, y) values.
+     *
+     * @param node
+     *            the current node being processed
+     * @param sem
+     *            the seminar to be inserted
+     * @param x
+     *            the x-coordinate
+     * @param y
+     *            the y-coordinate
+     * @param worldX
+     *            the size of the world in the x-direction
+     * @param worldY
+     *            the size of the world in the y-direction
+     * @param depth
+     *            the current depth in the tree
+     * @return the updated node after insertion
+     */
     private BinNode insertHelp(
         BinNode node,
         Seminar sem,
@@ -80,6 +132,19 @@ public class BinTree {
     }
 
 
+    /**
+     * Searches for seminars within a specified radius of the given (x, y)
+     * coordinates.
+     *
+     * @param x
+     *            the x-coordinate to search from
+     * @param y
+     *            the y-coordinate to search from
+     * @param radius
+     *            the radius within which to search
+     * @return a list of leaf nodes found within the search radius, or null if
+     *         the tree is empty
+     */
     public DLList<LeafNode> search(int x, int y, int radius) {
         if (root instanceof EmptyNode) {
             return null;
@@ -91,22 +156,44 @@ public class BinTree {
     }
 
 
+    /**
+     * Helper method for the search function, which traverses the tree
+     * recursively to find nodes
+     * within the search radius.
+     *
+     * @param found
+     *            the list of nodes found within the radius
+     * @param node
+     *            the current node being processed
+     * @param x
+     *            the x-coordinate to search from
+     * @param y
+     *            the y-coordinate to search from
+     * @param radius
+     *            the radius within which to search
+     * @param depth
+     *            the current depth in the tree
+     * @param worldX
+     *            the size of the world in the x-direction
+     * @param worldY
+     *            the size of the world in the y-direction
+     */
     public void searchHelp(
         DLList<LeafNode> found,
-        BinNode root,
+        BinNode node,
         int x,
         int y,
         int radius,
         int depth,
         int worldX,
         int worldY) {
-        if (root instanceof EmptyNode) {
+        if (node instanceof EmptyNode) {
             nodesTraversed++;
             return;
         }
 
-        if (root instanceof LeafNode) {
-            LeafNode copy = (LeafNode)root;
+        if (node instanceof LeafNode) {
+            LeafNode copy = (LeafNode)node;
 
             int xsquare = (x - copy.getxValue()) * (x - copy.getxValue());
             int ysquare = (y - copy.getyValue()) * (y - copy.getyValue());
@@ -119,8 +206,8 @@ public class BinTree {
             return;
         }
 
-        if (root instanceof InternalNode) {
-            InternalNode i = (InternalNode)root;
+        if (node instanceof InternalNode) {
+            InternalNode i = (InternalNode)node;
             nodesTraversed++;
 
             if (depth % 2 == 0) {
@@ -188,8 +275,8 @@ public class BinTree {
      */
     public void print() {
         int height = this.findHeight();
-        printHelp(root, height, 0);                   
-        
+        printHelp(root, height, 0);
+
     }
 
 
@@ -204,34 +291,31 @@ public class BinTree {
      *            the current level in the tree.
      */
     private void printHelp(BinNode node, int h, int level) {
-        // Handle EmptyNode
+
         if (node == null || node instanceof EmptyNode) {
-            // Print EmptyNode (E)
+
             for (int i = 0; i < (level); i++) {
-                System.out.print("    "); // Indentation based on level
+                System.out.print("    ");
             }
             System.out.println("(E)");
             return;
         }
 
-        // Handle InternalNode (I)
         if (node instanceof InternalNode) {
             for (int i = 0; i < (level); i++) {
-                System.out.print("    "); // Indentation based on level
+                System.out.print("    ");
             }
             System.out.println("(I)");
 
-            // Recursively print the left and right children
             printHelp(((InternalNode)node).getRight(), h, level + 1);
             printHelp(((InternalNode)node).getLeft(), h, level + 1);
 
             return;
         }
 
-        // Handle LeafNode
         if (node instanceof LeafNode) {
             for (int i = 0; i < (level); i++) {
-                System.out.print("    "); // Indentation based on level
+                System.out.print("    ");
             }
             System.out.println(((LeafNode)node).toString());
             return;
@@ -239,26 +323,43 @@ public class BinTree {
     }
 
 
-    public void search() {
-
-    }
-
-
+    /**
+     * Retrieves the size of the world in which the binary tree operates.
+     *
+     * @return the world size
+     */
     public int getWorldSize() {
         return worldSize;
     }
 
 
+    /**
+     * Sets the world size for the binary tree.
+     *
+     * @param worldSize
+     *            the size of the world to set
+     */
     public void setWorldSize(int worldSize) {
         this.worldSize = worldSize;
     }
 
 
+    /**
+     * Sets the root of the binary tree to the specified node.
+     *
+     * @param node
+     *            the new root node
+     */
     public void setRoot(BinNode node) {
         root = node;
     }
 
 
+    /**
+     * Retrieves the root node of the binary tree.
+     *
+     * @return the root node
+     */
     public BinNode getRoot() {
         return root;
     }
@@ -274,11 +375,22 @@ public class BinTree {
     }
 
 
+    /**
+     * Retrieves the number of nodes traversed during the last search operation.
+     *
+     * @return the number of nodes traversed
+     */
     public int getNodesTraversed() {
         return nodesTraversed;
     }
 
 
+    /**
+     * Sets the number of nodes traversed during the last search operation.
+     *
+     * @param nodesTraversed
+     *            the number of nodes traversed
+     */
     public void setNodesTraversed(int nodesTraversed) {
         this.nodesTraversed = nodesTraversed;
     }

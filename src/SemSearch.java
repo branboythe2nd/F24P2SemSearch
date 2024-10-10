@@ -47,6 +47,15 @@ public class SemSearch {
     }
 
 
+    /**
+     * Processes the comamnd file
+     * 
+     * @param worldSize
+     *            given world size
+     * @param fileName
+     *            name of the file
+     * @throws FileNotFoundException
+     */
     public static void processCommandFile(String worldSize, String fileName)
         throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(fileName));
@@ -67,6 +76,12 @@ public class SemSearch {
     }
 
 
+    /**
+     * Processes the command
+     * 
+     * @param command
+     *            the command to be processes
+     */
     public static void processCommand(String command) {
         String[] commandParts = command.split("\\s+");
         String mainCommand = commandParts[0].toLowerCase();
@@ -88,6 +103,19 @@ public class SemSearch {
     }
 
 
+    /**
+     * Processes an "insert" command from the input, parsing the seminar details
+     * such as title, date/time, location, cost, keywords, and description.
+     * After parsing, it creates a Seminar object and inserts it into the
+     * system.
+     *
+     * @param scanner
+     *            the scanner object to read the input
+     * @param firstLine
+     *            the first line of the command containing the seminar ID
+     * @param worldSize
+     *            the world size which is passed to the insert method
+     */
     private static void processInsertCommand(
         Scanner scanner,
         String firstLine,
@@ -112,12 +140,29 @@ public class SemSearch {
     }
 
 
+    /**
+     * Handles the "delete" command by parsing the seminar ID and calling the
+     * control's delete method to remove the seminar with the specified ID.
+     *
+     * @param commandParts
+     *            the parts of the command, where the second part is the seminar
+     *            ID
+     */
     private static void handleDelete(String[] commandParts) {
         int id = Integer.parseInt(commandParts[1]);
         control.delete(id);
     }
 
 
+    /**
+     * Handles the "search" command by identifying the search type (ID, keyword,
+     * cost, location, or date) and calls the appropriate search method in the
+     * control.
+     *
+     * @param commandParts
+     *            the parts of the search command, where the second part
+     *            indicates the search type
+     */
     private static void handleSearch(String[] commandParts) {
         String searchType = commandParts[1].toLowerCase();
 
@@ -139,7 +184,7 @@ public class SemSearch {
                 short x = Short.parseShort(commandParts[2]);
                 short y = Short.parseShort(commandParts[3]);
                 int radius = Integer.parseInt(commandParts[4]);
-                control.searchLocation(x,y,radius);
+                control.searchLocation(x, y, radius);
                 break;
             case "date":
                 String startDate = commandParts[2];
@@ -153,6 +198,15 @@ public class SemSearch {
     }
 
 
+    /**
+     * Handles the "print" command by identifying the print type (ID, keyword,
+     * location, cost, or date) and calls the appropriate print method in the
+     * control.
+     *
+     * @param commandParts
+     *            the parts of the print command, where the second part
+     *            indicates the print type
+     */
     private static void handlePrint(String[] commandParts) {
         String printType = commandParts[1].toLowerCase();
 

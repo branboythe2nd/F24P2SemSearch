@@ -56,7 +56,7 @@ public class ProblemSpecTest extends TestCase {
             "solutionTestData/P2_sampleOutput.txt");
 
         // Compare the two outputs
-        // TODO: uncomment the following line
+        // uncomment the following line
         // once you have implemented your project
         // assertFuzzyEquals(referenceOutput, output);
     }
@@ -86,7 +86,7 @@ public class ProblemSpecTest extends TestCase {
             "solutionTestData/P2_syntaxInsertOutput.txt");
 
         // Compare the two outputs
-        // TODO: uncomment the following line
+        // uncomment the following line
         // once you have implemented your project
         assertFuzzyEquals(referenceOutput, output);
     }

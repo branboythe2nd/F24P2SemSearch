@@ -1,8 +1,13 @@
 /**
  * Represents a node in a binary search tree (BST) that holds generic data
- * and a reference to a seminar object, as well as pointers to left and right child nodes.
+ * and a reference to a seminar object, as well as pointers to left and right
+ * child nodes.
+ * 
+ * @author Brantson and Adarsh
+ * @version 10/03/2024
  *
- * @param <T> the type of data stored in this node, must be Comparable
+ * @param <T>
+ *            the type of data stored in this node, must be Comparable
  */
 public class Node<T> {
     private T data;
@@ -11,12 +16,17 @@ public class Node<T> {
     private Seminar seminar;
 
     /**
-     * Constructs a new Node with the specified data, seminar, left, and right child nodes.
+     * Constructs a new Node with the specified data, seminar, left, and right
+     * child nodes.
      *
-     * @param data the data to store in the node
-     * @param seminar the seminar associated with the node
-     * @param left the left child node
-     * @param right the right child node
+     * @param data
+     *            the data to store in the node
+     * @param seminar
+     *            the seminar associated with the node
+     * @param left
+     *            the left child node
+     * @param right
+     *            the right child node
      */
     public Node(T data, Seminar seminar, Node<T> left, Node<T> right) {
         this.data = data;
@@ -25,14 +35,17 @@ public class Node<T> {
         this.seminar = seminar;
     }
 
+
     /**
      * Sets the left child of this node.
      *
-     * @param node the node to set as the left child
+     * @param node
+     *            the node to set as the left child
      */
     public void setLeft(Node<T> node) {
         this.left = node;
     }
+
 
     /**
      * Retrieves the left child of this node.
@@ -43,14 +56,17 @@ public class Node<T> {
         return left;
     }
 
+
     /**
      * Sets the right child of this node.
      *
-     * @param node the node to set as the right child
+     * @param node
+     *            the node to set as the right child
      */
     public void setRight(Node<T> node) {
         this.right = node;
     }
+
 
     /**
      * Retrieves the right child of this node.
@@ -61,14 +77,17 @@ public class Node<T> {
         return right;
     }
 
+
     /**
      * Sets the data stored in this node.
      *
-     * @param data the data to set in the node
+     * @param data
+     *            the data to set in the node
      */
     public void setData(T data) {
         this.data = data;
     }
+
 
     /**
      * Retrieves the data stored in this node.
@@ -79,6 +98,7 @@ public class Node<T> {
         return data;
     }
 
+
     /**
      * Retrieves the seminar associated with this node.
      *
@@ -88,10 +108,12 @@ public class Node<T> {
         return seminar;
     }
 
+
     /**
      * Sets the seminar associated with this node.
      *
-     * @param seminar the seminar to associate with this node
+     * @param seminar
+     *            the seminar to associate with this node
      */
     public void setSeminar(Seminar seminar) {
         this.seminar = seminar;

@@ -1,8 +1,7 @@
 /**
  * The Controller class manages a graph structure representing artists and
  * songs.
- * It supports inserting artists and songs, printing the graph, and removing
- * artists or songs.
+ * It supports the command processor
  * 
  * @author Brantson and Adarsh
  * @version 09.05.2024
@@ -16,6 +15,9 @@ public class Controller {
 
     /**
      * Constructs a Controller
+     * 
+     * @param worldSize
+     *            the size of the world
      */
     public Controller(int worldSize) {
         idTree = new BST<Integer>();
@@ -27,10 +29,8 @@ public class Controller {
 
 
     /**
-     * Inserts an artist and song into the database and updates the graph.
-     * If the artist or song is already present, the method will handle
-     * duplicates.
-     * Also checks and doubles the size of the hash table if necessary.
+     * Inserts seminars by breaking its respective parts and inserting them into
+     * their respective trees
      *
      * @param s
      *            the seminar to be inserted
@@ -169,18 +169,27 @@ public class Controller {
         System.out.println(datesTree.getNodesTraversed()
             + " nodes visited in this search");
     }
-    
-    public void searchLocation(int x, int y , int radius)
-    {
+
+
+    /**
+     * searches for the seminars within a given radius and point
+     * 
+     * @param x
+     *            x value of the search center
+     * @param y
+     *            y value of the search center
+     * @param radius
+     *            radius of the circle with the x and y as the center
+     */
+    public void searchLocation(int x, int y, int radius) {
         DLList<LeafNode> found = locationTree.search(x, y, radius);
-        //System.out.println(found);
-        System.out.println("Seminars within " + radius + " units of " + x+", "+y
-            + ":");
-        for(LeafNode l : found)
-        {
-            for(Seminar s: l.getSemList())
-            {
-                System.out.println("Found a record with key value " + s.id()+" at " + l.getxValue()+", "+l.getyValue());
+        // System.out.println(found);
+        System.out.println("Seminars within " + radius + " units of " + x + ", "
+            + y + ":");
+        for (LeafNode l : found) {
+            for (Seminar s : l.getSemList()) {
+                System.out.println("Found a record with key value " + s.id()
+                    + " at " + l.getxValue() + ", " + l.getyValue());
             }
         }
         System.out.println(locationTree.getNodesTraversed()
@@ -222,7 +231,8 @@ public class Controller {
         System.out.println("Date Tree:");
         datesTree.print();
     }
-    
+
+
     /**
      * returns the Dates tree
      */
