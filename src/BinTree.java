@@ -187,13 +187,9 @@ public class BinTree {
      * If the tree is empty, prints a message indicating that.
      */
     public void print() {
-        if (numOfRecords == 0) {
-            System.out.println("This tree is Empty");
-        }
-        else {
-            int height = this.findHeight();
-            printHelp(root, height, 0);
-        }
+        int height = this.findHeight();
+        printHelp(root, height, 0);                   
+        
     }
 
 

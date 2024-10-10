@@ -1,3 +1,4 @@
+print location
 print ID
 search ID 1
 search keyword VT
