@@ -49,22 +49,22 @@ public class BinTree {
         if (node instanceof InternalNode) {
             InternalNode i = (InternalNode)node;
             if (depth % 2 == 0) {
-                if (sem.x() >= worldX / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, worldX / 2, worldY,
+                if (sem.x() >= worldX) {
+                    i.setRight(insertHelp(i.getRight(), sem, worldX - worldX/2, worldY,
                         depth + 1));
                 }
                 else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, worldX / 2, worldY,
+                    i.setLeft(insertHelp(i.getLeft(), sem, worldX - worldX/2, worldY,
                         depth + 1));
                 }
             }
             else {
-                if (sem.y() >= worldY / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, worldX, worldY / 2,
+                if (sem.y() >= worldY) {
+                    i.setRight(insertHelp(i.getRight(), sem, worldX, worldY - worldY/2,
                         depth + 1));
                 }
                 else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, worldX, worldY / 2,
+                    i.setLeft(insertHelp(i.getLeft(), sem, worldX, worldY - worldY/2,
                         depth + 1));
                 }
             }
