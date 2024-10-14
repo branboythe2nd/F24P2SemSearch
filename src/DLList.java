@@ -1,5 +1,4 @@
 
-
 import java.util.*;
 
 /**
@@ -30,6 +29,7 @@ public class DLList<E> implements Iterable<E> {
     class DLListIterator<E> implements Iterator<E> {
 
         private Node<E> next;
+
         /**
          * Creates a new DLListIterator
          */
@@ -80,8 +80,7 @@ public class DLList<E> implements Iterable<E> {
      * @author Mark Wiggans (mmw125)
      * @version 4/14/2015
      */
-    private static class Node<E> 
-    {
+    private static class Node<E> {
         private Node<E> next;
         private Node<E> previous;
         private E data;

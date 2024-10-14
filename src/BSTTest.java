@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 /**
  * Test class for BST
  * 
@@ -147,7 +148,6 @@ public class BSTTest extends student.TestCase {
         leftNode = leftNode.getLeft();
         assertEquals((int)leftNode.getData(), 1);
         assertEquals(leftNode.getSeminar(), sem1);
-        
 
         BST<Integer> co = new BST<Integer>();
         co.insert(45, sem1);
@@ -205,33 +205,37 @@ public class BSTTest extends student.TestCase {
         assertEquals((int)curr.getLeft().getRight().getData(), 9);
         assertNull(curr.getLeft().getRight().getRight());
 
-        assertEquals(test.getNumOfRecords(), 8); 
+        assertEquals(test.getNumOfRecords(), 8);
 
     }
-    public void testRemove()
-    {
+
+
+    /**
+     * tests the delete function
+     */
+    public void testRemove() {
         test.insert(20, sem6);
         test.insert(40, sem5);
         test.insert(50, sem7);
         test.insert(10, sem10);
         test.insert(10, sem4);
         test.insert(40, sem2);
-        
+
         Node<Integer> root = test.getRoot();
-        assertEquals(40,(int)root.getRight().getLeft().getData());
+        assertEquals(40, (int)root.getRight().getLeft().getData());
         assertEquals(10, (int)root.getLeft().getLeft().getData());
-        
+
         test.delete(40, sem2.id());
-        assertEquals(test.getNumOfRecords(),5);
+        assertEquals(test.getNumOfRecords(), 5);
         DLList<Seminar> found = test.searchExact(40);
-        assertEquals(found.size(),1);
+        assertEquals(found.size(), 1);
         assertNull(root.getRight().getLeft());
         test.delete(10, sem4.id());
-        assertEquals(test.getNumOfRecords(),4);
+        assertEquals(test.getNumOfRecords(), 4);
         found = test.searchExact(10);
-        assertEquals(found.size(),1);
+        assertEquals(found.size(), 1);
         assertNull(root.getLeft().getLeft());
-        
+
         BST<Integer> empty = new BST<Integer>();
         empty.insert(sem6.id(), sem6);
         empty.insert(sem7.id(), sem7);
@@ -239,12 +243,10 @@ public class BSTTest extends student.TestCase {
         empty.insert(sem9.id(), sem9);
         empty.insert(sem10.id(), sem10);
         empty.insert(sem11.id(), sem11);
-        
-        
+
         empty.delete(11, sem11.id());
-        
-        
-        assertEquals(empty.getNumOfRecords(),5);
+
+        assertEquals(empty.getNumOfRecords(), 5);
         root = empty.getRoot();
         assertNull(root.getRight().getRight().getRight().getRight().getRight());
         empty = new BST<Integer>();
@@ -252,15 +254,15 @@ public class BSTTest extends student.TestCase {
         empty.insert(50, sem7);
         empty.insert(32, sem9);
         empty.insert(30, sem8);
-        
+
         empty.insert(29, sem10);
         empty.insert(33, sem11);
         empty.insert(31, sem1);
         empty.insert(28, sem2);
-        
+
         empty.delete(32, sem9.id());
-        assertEquals(31,(int)empty.getRoot().getLeft().getData());
-        
+        assertEquals(31, (int)empty.getRoot().getLeft().getData());
+
         empty = new BST<Integer>();
         assertEquals(0, empty.findHeight());
         empty.print();
@@ -272,8 +274,9 @@ public class BSTTest extends student.TestCase {
         empty.insert(sem11.id(), sem11);
         empty.delete(10, sem8.id());
         assertNotNull(empty.getRoot().getLeft().getRight());
-        
+
     }
+
 
     /**
      * Tests search range
@@ -290,8 +293,7 @@ public class BSTTest extends student.TestCase {
         test.insert(sem9.id(), sem9);
         test.insert(sem8.id(), sem8);
         test.insert(sem3.id(), sem3);
-        //test.insert(sem9.id(), sem9);
-        
+        // test.insert(sem9.id(), sem9);
 
         DLList<Seminar> result = test.searchRange(5, 8);
         assertEquals(4, result.size());
@@ -302,19 +304,18 @@ public class BSTTest extends student.TestCase {
         result = test.searchRange(0, 13);
         assertEquals(11, result.size());
         assertEquals(23, test.getNodesTraversed());
-        
-        
 
     }
+
+
     /**
      * Tests search range
      */
     public void testSearchRange2() {
-        test.insert(sem6.id(), sem6);   
-        test.insert(sem7.id(), sem7);   
-        test.insert(sem10.id(), sem10); 
-        test.insert(sem4.id(), sem4);   // ID 4
-        
+        test.insert(sem6.id(), sem6);
+        test.insert(sem7.id(), sem7);
+        test.insert(sem10.id(), sem10);
+        test.insert(sem4.id(), sem4); // ID 4
 
         DLList<Seminar> result = test.searchRange(5, 8);
         assertEquals(2, result.size()); // We expect 2 results: sem6 and sem7
@@ -328,9 +329,10 @@ public class BSTTest extends student.TestCase {
 
     /**
      * Tests the print method
-     * @throws IOException 
+     * 
+     * @throws IOException
      */
-    public void testPrint() throws IOException  {
+    public void testPrint() throws IOException {
         test.insert(sem6.id(), sem6);
         assertEquals(1, test.findHeight());
         test.insert(sem5.id(), sem5);
@@ -348,7 +350,6 @@ public class BSTTest extends student.TestCase {
         test.insert(sem11.id(), sem11);
 
         test.print();
-        
 
         BST<Integer> empty = new BST<Integer>();
         assertEquals(0, empty.findHeight());
@@ -360,25 +361,25 @@ public class BSTTest extends student.TestCase {
         empty.insert(sem10.id(), sem10);
         empty.insert(sem11.id(), sem11);
         Node<Integer> root = empty.getRoot();
-        assertEquals((int)root.getData(),6);
+        assertEquals((int)root.getData(), 6);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),7);
+        assertEquals((int)root.getData(), 7);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),8);
+        assertEquals((int)root.getData(), 8);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),9);
+        assertEquals((int)root.getData(), 9);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),10);
+        assertEquals((int)root.getData(), 10);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),11);
+        assertEquals((int)root.getData(), 11);
         assertNull(root.getLeft());
         assertNull(root.getRight());
-        
+
         assertEquals(6, empty.findHeight());
         assertEquals(6, test.findHeight());
         empty.print();
@@ -390,41 +391,43 @@ public class BSTTest extends student.TestCase {
         empty.insert(sem7.id(), sem7);
         empty.insert(sem6.id(), sem6);
         root = empty.getRoot();
-        assertEquals((int)root.getData(),11);
+        assertEquals((int)root.getData(), 11);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),10);
+        assertEquals((int)root.getData(), 10);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),9);
+        assertEquals((int)root.getData(), 9);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),8);
+        assertEquals((int)root.getData(), 8);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),7);
+        assertEquals((int)root.getData(), 7);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),6);
+        assertEquals((int)root.getData(), 6);
         assertNull(root.getLeft());
         assertNull(root.getRight());
-        
-        
+
         empty.print();
-        int[] expected = {0, 1, 2, 3, 4, 5};
+        int[] expected = { 0, 1, 2, 3, 4, 5 };
         int count = 0;
-        assertEquals(empty.getLevels().size(),6);
-        for(int l : empty.getLevels())
-        {
-            assertEquals(l,expected[count]);
+        assertEquals(empty.getLevels().size(), 6);
+        for (int l : empty.getLevels()) {
+            assertEquals(l, expected[count]);
             count++;
         }
         String actualOutput = systemOut().getHistory();
         String expectedOutput = readFile("solutionTestData/bstprint.txt");
-        assertFuzzyEquals(actualOutput,expectedOutput);
+        assertFuzzyEquals(actualOutput, expectedOutput);
     }
-    public void testDeleteM()
-    {
+
+
+    /**
+     * More edge cases for delete
+     */
+    public void testDeleteM() {
         BST<Integer> empty = new BST<Integer>();
         empty.insert(sem11.id(), sem11);
         empty.insert(sem10.id(), sem10);
@@ -433,31 +436,31 @@ public class BSTTest extends student.TestCase {
         empty.insert(sem7.id(), sem7);
         empty.insert(sem6.id(), sem6);
         Node<Integer> root = empty.getRoot();
-        assertEquals((int)root.getData(),11);
+        assertEquals((int)root.getData(), 11);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),10);
+        assertEquals((int)root.getData(), 10);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),9);
+        assertEquals((int)root.getData(), 9);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),8);
+        assertEquals((int)root.getData(), 8);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),7);
+        assertEquals((int)root.getData(), 7);
         assertNull(root.getRight());
         root = root.getLeft();
-        assertEquals((int)root.getData(),6);
+        assertEquals((int)root.getData(), 6);
         assertNull(root.getLeft());
         assertNull(root.getRight());
-        
+
         empty.delete(6, sem6.id());
         DLList<Seminar> found = empty.searchExact(6);
-        assertEquals(found.size(),0);
+        assertEquals(found.size(), 0);
         root = empty.getRoot();
         assertNull(root.getLeft().getLeft().getLeft().getLeft().getLeft());
-        
+
         empty = new BST<Integer>();
         assertEquals(0, empty.findHeight());
         empty.print();
@@ -468,43 +471,44 @@ public class BSTTest extends student.TestCase {
         empty.insert(sem10.id(), sem10);
         empty.insert(sem11.id(), sem11);
         root = empty.getRoot();
-        assertEquals((int)root.getData(),6);
+        assertEquals((int)root.getData(), 6);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),7);
+        assertEquals((int)root.getData(), 7);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),8);
+        assertEquals((int)root.getData(), 8);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),9);
+        assertEquals((int)root.getData(), 9);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),10);
+        assertEquals((int)root.getData(), 10);
         assertNull(root.getLeft());
         root = root.getRight();
-        assertEquals((int)root.getData(),11);
+        assertEquals((int)root.getData(), 11);
         assertNull(root.getLeft());
         assertNull(root.getRight());
-        
+
         empty.delete(11, 11);
         found = empty.searchExact(11);
-        assertEquals(found.size(),0);
+        assertEquals(found.size(), 0);
         root = empty.getRoot();
         assertNull(root.getRight().getRight().getRight().getRight().getRight());
         empty.delete(10, 10);
         found = empty.searchExact(10);
-        assertEquals(found.size(),0);
+        assertEquals(found.size(), 0);
         root = empty.getRoot();
         assertNull(root.getRight().getRight().getRight().getRight());
         empty.delete(9, 9);
         found = empty.searchExact(9);
-        assertEquals(found.size(),0);
+        assertEquals(found.size(), 0);
         root = empty.getRoot();
         assertNull(root.getRight().getRight().getRight());
-        
-                        
+
     }
+
+
     /**
      * Read contents of a file into a string
      * 
@@ -518,63 +522,49 @@ public class BSTTest extends student.TestCase {
         return new String(encoded);
     }
 
+
+    /**
+     * Tests the more rigid edge cases for print
+     */
     public void testPrint1() {
         // Insert nodes
-        test.insert(20, sem1);  // Root node with key 20
-        test.insert(10, sem2);  // Left child
-        test.insert(30, sem3);  // Right child
+        test.insert(20, sem1); // Root node with key 20
+        test.insert(10, sem2); // Left child
+        test.insert(30, sem3); // Right child
 
         // Capture the printed output
         test.print();
 
-        String expectedOutput = 
-             "(null)\r\n"
-            + "    \\\r\n"
-            + "    (10)\r\n"
-            + "    /\r\n"
-            + "(null)\r\n"
-            + "        \\\r\n"
-            + "        (20)\r\n"
-            + "        /\r\n"
-            + "(null)\r\n"
-            + "    \\\r\n"
-            + "    (30)\r\n"
-            + "    /\r\n"
-            + "(null)\r\n"
-            + "Number of Records: 3\n";
+        String expectedOutput = "(null)\r\n" + "    \\\r\n" + "    (10)\r\n"
+            + "    /\r\n" + "(null)\r\n" + "        \\\r\n" + "        (20)\r\n"
+            + "        /\r\n" + "(null)\r\n" + "    \\\r\n" + "    (30)\r\n"
+            + "    /\r\n" + "(null)\r\n" + "Number of Records: 3\n";
 
         // Check the printed output (compare to the expected output)
         assertEquals(systemOut().getHistory(), expectedOutput);
     }
 
+
+    /**
+     * Tests print again
+     */
     public void testPrint2() {
         // Insert nodes to create a deeper right subtree
-        test.insert(20, sem1);  // Root node with key 20
-        test.insert(30, sem2);  // Right child
-        test.insert(40, sem3);  // Right child of 30
+        test.insert(20, sem1); // Root node with key 20
+        test.insert(30, sem2); // Right child
+        test.insert(40, sem3); // Right child of 30
 
         // Capture the printed output
         test.print();
 
-        String expectedOutput = 
-           "        (null)\r\n"
-           + "            \\\r\n"
-           + "            (20)\r\n"
-           + "            /\r\n"
-           + "    (null)\r\n"
-           + "        \\\r\n"
-           + "        (30)\r\n"
-           + "        /\r\n"
-           + "(null)\r\n"
-           + "    \\\r\n"
-           + "    (40)\r\n"
-           + "    /\r\n"
-           + "(null)\r\n"
-           + "Number of Records: 3\n";
+        String expectedOutput = "        (null)\r\n" + "            \\\r\n"
+            + "            (20)\r\n" + "            /\r\n" + "    (null)\r\n"
+            + "        \\\r\n" + "        (30)\r\n" + "        /\r\n"
+            + "(null)\r\n" + "    \\\r\n" + "    (40)\r\n" + "    /\r\n"
+            + "(null)\r\n" + "Number of Records: 3\n";
 
         // Check the printed output (compare to the expected output)
         assertEquals(systemOut().getHistory(), expectedOutput);
     }
-
 
 }

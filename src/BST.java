@@ -271,7 +271,7 @@ public class BST<T extends Comparable<T>> {
 
         return Math.max(left, right) + 1;
     }
-    
+
 
     /**
      * Prints the tree's structure and the number of records.
@@ -302,7 +302,7 @@ public class BST<T extends Comparable<T>> {
      */
     private void printHelp(Node<T> node, int h, int level) {
         int diff = h - level;
-        
+
         if (node == null) {
             for (int i = 0; i < diff; i++) {
                 System.out.print("    ");
@@ -394,6 +394,8 @@ public class BST<T extends Comparable<T>> {
     public int getNodesTraversed() {
         return nodesTraversed;
     }
+
+
     /**
      * Retrieves the number of nodes traversed during the last range search.
      *

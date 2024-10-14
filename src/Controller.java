@@ -20,7 +20,7 @@ public class Controller {
      *            the size of the world
      */
     public Controller(int worldSize) {
-        setIdTree(new BST<Integer>());
+        idTree = new BST<Integer>();
         costTree = new BST<Integer>();
         datesTree = new BST<String>();
         keywordsTree = new BST<String>();
@@ -242,13 +242,13 @@ public class Controller {
     }
 
 
+    /**
+     * returns the BST for id tree
+     * 
+     * @return the id tree
+     */
     public BST<Integer> getIdTree() {
         return idTree;
-    }
-
-
-    public void setIdTree(BST<Integer> idTree) {
-        this.idTree = idTree;
     }
 
 }

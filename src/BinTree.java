@@ -80,13 +80,13 @@ public class BinTree {
         int worldX,
         int worldY,
         int depth) {
-       
+
         if (node instanceof InternalNode) {
             InternalNode i = (InternalNode)node;
             if (depth % 2 == 0) {
                 if (sem.x() >= x + worldX / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, x + worldX / 2, y, worldX / 2, worldY, 
-                        depth + 1));
+                    i.setRight(insertHelp(i.getRight(), sem, x + worldX / 2, y,
+                        worldX / 2, worldY, depth + 1));
                 }
                 else {
                     i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX / 2,
@@ -99,8 +99,8 @@ public class BinTree {
                         worldX, worldY / 2, depth + 1));
                 }
                 else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX, worldY/ 2, 
-                        depth + 1));
+                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX, worldY
+                        / 2, depth + 1));
                 }
             }
 
@@ -128,8 +128,6 @@ public class BinTree {
             leaf.insert(sem);
             return leaf;
         }
-        
-       
 
     }
 
@@ -201,7 +199,7 @@ public class BinTree {
             int ysquare = (y - copy.getyValue()) * (y - copy.getyValue());
             int rsquare = radius * radius;
 
-            if(copy.getxValue()==x && copy.getyValue()==y ) {
+            if (copy.getxValue() == x && copy.getyValue() == y) {
                 found.add(copy);
             }
             else if ((xsquare + ysquare) <= rsquare) {
@@ -293,7 +291,7 @@ public class BinTree {
      */
     private void printHelp(BinNode node, int h, int level) {
 
-        if ( node instanceof EmptyNode) {
+        if (node instanceof EmptyNode) {
 
             for (int i = 0; i < (level); i++) {
                 System.out.print("    ");

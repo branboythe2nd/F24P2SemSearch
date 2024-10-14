@@ -1,5 +1,4 @@
 
-
 import student.TestCase;
 import java.util.*;
 
@@ -46,7 +45,7 @@ public class DLListTest extends TestCase {
         }
         assertTrue(e instanceof IndexOutOfBoundsException);
     }
-    
+
 
     /**
      * Tests that objects can be removed at the beginning and end and that the
@@ -125,124 +124,136 @@ public class DLListTest extends TestCase {
         assertTrue(e instanceof IllegalArgumentException);
     }
 
+
     /**
-     * This tests when the add method is called with both valid and invalid index values,
-     * ensuring that the correct exceptions are thrown or not thrown as expected.
+     * This tests when the add method is called with both valid and invalid
+     * index values,
+     * ensuring that the correct exceptions are thrown or not thrown as
+     * expected.
      */
     public void testAddException() {
-        list.add("A");  // Adds "A" at index 0, size becomes 1
+        list.add("A"); // Adds "A" at index 0, size becomes 1
 
         // Case 1: Index greater than size (size is 1, so index 2 is invalid)
         Exception e = null;
         try {
-            list.add(2, "B");  // Invalid index, should throw IndexOutOfBoundsException
+            list.add(2, "B"); // Invalid index, should throw
+                              // IndexOutOfBoundsException
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertTrue(e instanceof IndexOutOfBoundsException);  // This should pass
+        assertTrue(e instanceof IndexOutOfBoundsException); // This should pass
 
         // Case 2: Negative index (index -1 is invalid)
         e = null;
         try {
-            list.add(-1, "B");  // Invalid index, should throw IndexOutOfBoundsException
+            list.add(-1, "B"); // Invalid index, should throw
+                               // IndexOutOfBoundsException
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertTrue(e instanceof IndexOutOfBoundsException);  // This should pass
+        assertTrue(e instanceof IndexOutOfBoundsException); // This should pass
 
         // Case 3: Valid index at the end (index == size)
         e = null;
         try {
-            list.add(1, "B");  // Valid index, should NOT throw any exception
+            list.add(1, "B"); // Valid index, should NOT throw any exception
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertNull(e);  // No exception expected
+        assertNull(e); // No exception expected
 
         // Case 4: Valid index at the beginning (index == 0)
         e = null;
         try {
-            list.add(0, "C");  // Valid index, should NOT throw any exception
+            list.add(0, "C"); // Valid index, should NOT throw any exception
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertNull(e);  // No exception expected
+        assertNull(e); // No exception expected
 
         // Case 5: Index equal to the size after adding more elements
-        list.add("D");  // Adds at index 2 (size now 3)
+        list.add("D"); // Adds at index 2 (size now 3)
         e = null;
         try {
-            list.add(3, "E");  // Valid index == size, should NOT throw any exception
+            list.add(3, "E"); // Valid index == size, should NOT throw any
+                              // exception
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertNull(e);  // No exception expected
+        assertNull(e); // No exception expected
     }
-
 
 
     /**
      * This tests when the add method is called with various combinations of the
-     * index < 0 and size < index checks to ensure all logical combinations are covered.
+     * index < 0 and size < index checks to ensure all logical combinations are
+     * covered.
      */
     public void testAddLogicalConditions() {
-        list.add("A");  // Adds "A" at index 0, size becomes 1
+        list.add("A"); // Adds "A" at index 0, size becomes 1
 
         // Case 1: (false, false) - index is within valid range (index == size)
         Exception e = null;
         try {
-            list.add(1, "B");  // Valid index (index == size)
+            list.add(1, "B"); // Valid index (index == size)
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertNull(e);  // No exception expected for valid index
+        assertNull(e); // No exception expected for valid index
 
         // Case 2: (false, true) - index > size (size is 1, index is 2)
         e = null;
         try {
-            list.add(3, "C");  // Invalid index (index > size)
+            list.add(3, "C"); // Invalid index (index > size)
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertTrue(e instanceof IndexOutOfBoundsException);  // Exception expected
+        assertTrue(e instanceof IndexOutOfBoundsException); // Exception
+                                                            // expected
 
         // Case 3: (true, false) - index < 0 (negative index)
         e = null;
         try {
-            list.add(-1, "D");  // Invalid index (index < 0)
+            list.add(-1, "D"); // Invalid index (index < 0)
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertTrue(e instanceof IndexOutOfBoundsException);  // Exception expected
+        assertTrue(e instanceof IndexOutOfBoundsException); // Exception
+                                                            // expected
 
-        // Case 4: (true, true) - index < 0 and index > size (size is 1, index is -1)
+        // Case 4: (true, true) - index < 0 and index > size (size is 1, index
+        // is -1)
         e = null;
         try {
-            list.add(-1, "E");  // Invalid index (index < 0 and index > size doesn't apply)
+            list.add(-1, "E"); // Invalid index (index < 0 and index > size
+                               // doesn't apply)
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertTrue(e instanceof IndexOutOfBoundsException);  // Exception expected
+        assertTrue(e instanceof IndexOutOfBoundsException); // Exception
+                                                            // expected
 
         // Edge Case 5: Adding at index 0, should be valid (index == 0)
         e = null;
         try {
-            list.add(0, "F");  // Valid index (index == 0)
+            list.add(0, "F"); // Valid index (index == 0)
         }
         catch (Exception exception) {
             e = exception;
         }
-        assertNull(e);  // No exception expected for valid index at the beginning
+        assertNull(e); // No exception expected for valid index at the beginning
     }
+
 
     /**
      * Tests removing a object changes the size appropiately and that you can
@@ -349,7 +360,6 @@ public class DLListTest extends TestCase {
         list.add("B");
         assertEquals("{A, B}", list.toString());
     }
-    
 
 
     /**
