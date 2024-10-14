@@ -80,10 +80,32 @@ public class BinTree {
         int worldX,
         int worldY,
         int depth) {
-        if (node instanceof EmptyNode) {
-            LeafNode leaf = new LeafNode(sem.x(), sem.y());
-            leaf.insert(sem);
-            return leaf;
+       
+        if (node instanceof InternalNode) {
+            InternalNode i = (InternalNode)node;
+            if (depth % 2 == 0) {
+                if (sem.x() >= x + worldX / 2) {
+                    i.setRight(insertHelp(i.getRight(), sem, x + worldX / 2, y, worldX / 2, worldY, 
+                        depth + 1));
+                }
+                else {
+                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX / 2,
+                        worldY, depth + 1));
+                }
+            }
+            else {
+                if (sem.y() >= y + worldY / 2) {
+                    i.setRight(insertHelp(i.getRight(), sem, x, y + worldY / 2,
+                        worldX, worldY / 2, depth + 1));
+                }
+                else {
+                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX, worldY/ 2, 
+                        depth + 1));
+                }
+            }
+
+            return i;
+
         }
         if (node instanceof LeafNode) {
             LeafNode copy = (LeafNode)node;
@@ -101,33 +123,13 @@ public class BinTree {
 
             return iNode;
         }
-        if (node instanceof InternalNode) {
-            InternalNode i = (InternalNode)node;
-            if (depth % 2 == 0) {
-                if (sem.x() >= x + worldX / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, x + worldX / 2, y,
-                        worldX / 2, worldY, depth + 1));
-                }
-                else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX / 2,
-                        worldY, depth + 1));
-                }
-            }
-            else {
-                if (sem.y() >= y + worldY / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, x, y + worldY / 2,
-                        worldX, worldY / 2, depth + 1));
-                }
-                else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX, worldY
-                        / 2, depth + 1));
-                }
-            }
-
-            return i;
-
+        else {
+            LeafNode leaf = new LeafNode(sem.x(), sem.y());
+            leaf.insert(sem);
+            return leaf;
         }
-        return node;
+        
+       
 
     }
 
@@ -199,33 +201,36 @@ public class BinTree {
             int ysquare = (y - copy.getyValue()) * (y - copy.getyValue());
             int rsquare = radius * radius;
 
-            if ((xsquare + ysquare) <= rsquare) {
+            if(copy.getxValue()==x && copy.getyValue()==y ) {
+                found.add(copy);
+            }
+            else if ((xsquare + ysquare) <= rsquare) {
                 found.add(copy);
             }
             nodesTraversed++;
             return;
         }
 
-        if (node instanceof InternalNode) {
+        else {
             InternalNode i = (InternalNode)node;
             nodesTraversed++;
 
             if (depth % 2 == 0) {
-                if ((x - radius) <= worldX) {
+                if ((x - radius) < worldX) {
                     searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
                         worldX - worldX / 2, worldY);
                 }
-                if ((x + radius > worldX)) {
+                if ((x + radius >= worldX)) {
                     searchHelp(found, i.getRight(), x, y, radius, depth + 1,
                         worldX + worldX / 2, worldY);
                 }
             }
             else {
-                if ((y - radius) <= worldY) {
+                if ((y - radius) < worldY) {
                     searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
                         worldX, worldY - worldY / 2);
                 }
-                if ((y + radius) > worldY) {
+                if ((y + radius) >= worldY) {
                     searchHelp(found, i.getRight(), x, y, radius, depth + 1,
                         worldX, worldY + worldY / 2);
                 }
@@ -242,12 +247,8 @@ public class BinTree {
      * @return the height of the tree, or 0 if the tree is empty.
      */
     public int findHeight() {
-        if (this.getNumOfRecords() == 0) {
-            return 0;
-        }
-        else {
-            return findHeightHelp(root);
-        }
+        return findHeightHelp(root);
+
     }
 
 
@@ -292,7 +293,7 @@ public class BinTree {
      */
     private void printHelp(BinNode node, int h, int level) {
 
-        if (node == null || node instanceof EmptyNode) {
+        if ( node instanceof EmptyNode) {
 
             for (int i = 0; i < (level); i++) {
                 System.out.print("    ");
@@ -313,7 +314,7 @@ public class BinTree {
             return;
         }
 
-        if (node instanceof LeafNode) {
+        else {
             for (int i = 0; i < (level); i++) {
                 System.out.print("    ");
             }

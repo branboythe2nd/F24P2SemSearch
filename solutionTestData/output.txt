@@ -178,3 +178,7 @@ Location Tree:
     (I)
 (Leaf with 2 objects: 1 2)
 (Leaf with 1 objects: 3)
+Record with ID 1 successfully deleted from the database
+Delete FAILED -- There is no record with ID 6
+Search FAILED -- There is no record with ID 6
+Search FAILED -- There is no record with ID 99

@@ -13,6 +13,7 @@ public class BST<T extends Comparable<T>> {
     private Node<T> root;
     private int numOfRecords;
     private int nodesTraversed;
+    private DLList<Integer> levels;
 
     /**
      * Constructs an empty BST with no root node and zero records.
@@ -20,6 +21,7 @@ public class BST<T extends Comparable<T>> {
     public BST() {
         setRoot(null);
         setNumOfRecords(0);
+        levels = new DLList<Integer>();
     }
 
 
@@ -125,7 +127,7 @@ public class BST<T extends Comparable<T>> {
         else if (low < 0) {
             searchHelpRange(node.getRight(), lower, higher, found);
         }
-        else if (high > 0) {
+        else {
             searchHelpRange(node.getLeft(), lower, higher, found);
         }
     }
@@ -236,7 +238,7 @@ public class BST<T extends Comparable<T>> {
                 }
             }
             else {
-                deleteHelp(node.getLeft(), key, id);
+                node.setLeft(deleteHelp(node.getLeft(), key, id));
             }
         }
         return node;
@@ -249,12 +251,7 @@ public class BST<T extends Comparable<T>> {
      * @return the height of the tree, or 0 if the tree is empty.
      */
     public int findHeight() {
-        if (this.getNumOfRecords() == 0) {
-            return 0;
-        }
-        else {
-            return findHeightHelp(root);
-        }
+        return findHeightHelp(root);
     }
 
 
@@ -274,7 +271,7 @@ public class BST<T extends Comparable<T>> {
 
         return Math.max(left, right) + 1;
     }
-
+    
 
     /**
      * Prints the tree's structure and the number of records.
@@ -285,6 +282,7 @@ public class BST<T extends Comparable<T>> {
             System.out.println("This tree is Empty");
         }
         else {
+            levels = new DLList<Integer>();
             int height = this.findHeight();
             printHelp(root, height, 0);
             System.out.println("Number of Records: " + numOfRecords);
@@ -303,25 +301,27 @@ public class BST<T extends Comparable<T>> {
      *            the current level in the tree.
      */
     private void printHelp(Node<T> node, int h, int level) {
+        int diff = h - level;
+        
         if (node == null) {
-            for (int i = 0; i < (h - level); i++) {
+            for (int i = 0; i < diff; i++) {
                 System.out.print("    ");
             }
             System.out.println("(null)");
             return;
         }
-
+        levels.add(level);
         printHelp(node.getLeft(), h, level + 1);
 
-        for (int i = 0; i < (h - level); i++) {
+        for (int i = 0; i < diff; i++) {
             System.out.print("    ");
         }
         System.out.println("\\");
-        for (int i = 0; i < (h - level); i++) {
+        for (int i = 0; i < diff; i++) {
             System.out.print("    ");
         }
         System.out.println("(" + node.getData() + ")");
-        for (int i = 0; i < (h - level); i++) {
+        for (int i = 0; i < diff; i++) {
             System.out.print("    ");
         }
         System.out.println("/");
@@ -393,5 +393,13 @@ public class BST<T extends Comparable<T>> {
      */
     public int getNodesTraversed() {
         return nodesTraversed;
+    }
+    /**
+     * Retrieves the number of nodes traversed during the last range search.
+     *
+     * @return the levels of nodes traversed in the tree
+     */
+    public DLList<Integer> getLevels() {
+        return levels;
     }
 }

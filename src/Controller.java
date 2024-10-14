@@ -20,7 +20,7 @@ public class Controller {
      *            the size of the world
      */
     public Controller(int worldSize) {
-        idTree = new BST<Integer>();
+        setIdTree(new BST<Integer>());
         costTree = new BST<Integer>();
         datesTree = new BST<String>();
         keywordsTree = new BST<String>();
@@ -46,9 +46,9 @@ public class Controller {
             return;
         }
 
-        DLList<Seminar> sem = idTree.searchExact(s.id());
+        DLList<Seminar> sem = getIdTree().searchExact(s.id());
         if (sem.isEmpty()) {
-            idTree.insert(s.id(), s);
+            getIdTree().insert(s.id(), s);
             costTree.insert(s.cost(), s);
             datesTree.insert(s.date(), s);
             locationTree.insert(s.x(), s.y(), s);
@@ -75,14 +75,14 @@ public class Controller {
      *            id to be deleted
      */
     public void delete(int id) {
-        DLList<Seminar> sem = idTree.searchExact(id);
+        DLList<Seminar> sem = getIdTree().searchExact(id);
         if (sem.isEmpty()) {
             System.out.println("Delete FAILED -- There is no record with ID "
                 + id);
             return;
         }
         for (Seminar s : sem) {
-            idTree.delete(s.id(), id);
+            getIdTree().delete(s.id(), id);
             costTree.delete(s.cost(), id);
             datesTree.delete(s.date(), id);
             for (String k : s.keywords()) {
@@ -102,7 +102,7 @@ public class Controller {
      *            id to be found
      */
     public void searchID(int id) {
-        DLList<Seminar> sem = idTree.searchExact(id);
+        DLList<Seminar> sem = getIdTree().searchExact(id);
         if (sem.isEmpty()) {
             System.out.println("Search FAILED -- There is no record with ID "
                 + id);
@@ -202,7 +202,7 @@ public class Controller {
      */
     public void printId() {
         System.out.println("ID Tree:");
-        idTree.print();
+        getIdTree().print();
     }
 
 
@@ -239,6 +239,16 @@ public class Controller {
     public void printLocation() {
         System.out.println("Location Tree:");
         locationTree.print();
+    }
+
+
+    public BST<Integer> getIdTree() {
+        return idTree;
+    }
+
+
+    public void setIdTree(BST<Integer> idTree) {
+        this.idTree = idTree;
     }
 
 }

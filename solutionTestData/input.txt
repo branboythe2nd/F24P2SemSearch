@@ -39,3 +39,7 @@ search location 11 11 0
 search location 10 10 20
 
 print location
+delete 1
+delete 6
+search id 6
+search id 99
