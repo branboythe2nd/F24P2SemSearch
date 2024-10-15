@@ -250,7 +250,7 @@ public class BinTree {
         }
         DLList<LeafNode> found = new DLList<LeafNode>();
         setNodesTraversed(0);
-        searchHelp(found, root, x, y, radius, 0, worldSize / 2, worldSize / 2);
+        searchHelp(found, root, x, y, radius, 0, worldSize, worldSize, 0, 0);
         return found;
     }
 
@@ -276,6 +276,10 @@ public class BinTree {
      *            the size of the world in the x-direction
      * @param worldY
      *            the size of the world in the y-direction
+     * @param posX
+     *            comparable x value
+     * @param posY
+     *            comparable y value
      */
     public void searchHelp(
         DLList<LeafNode> found,
@@ -285,7 +289,9 @@ public class BinTree {
         int radius,
         int depth,
         int worldX,
-        int worldY) {
+        int worldY,
+        int posX,
+        int posY) {
         if (node instanceof EmptyNode) {
             nodesTraversed++;
             return;
@@ -312,23 +318,23 @@ public class BinTree {
             nodesTraversed++;
 
             if (depth % 2 == 0) {
-                if ((x - radius) < worldX) {
+                if ((x - radius) < posX + worldX / 2) {
                     searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
-                        worldX - worldX / 2, worldY);
+                        worldX / 2, worldY, posX, posY);
                 }
-                if ((x + radius >= worldX)) {
+                if ((x + radius >= posX + worldX / 2)) {
                     searchHelp(found, i.getRight(), x, y, radius, depth + 1,
-                        worldX + worldX / 2, worldY);
+                        worldX / 2, worldY, posX + worldX / 2, posY);
                 }
             }
             else {
-                if ((y - radius) < worldY) {
+                if ((y - radius) < posY + worldY / 2) {
                     searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
-                        worldX, worldY - worldY / 2);
+                        worldX, worldY / 2, posX, posY);
                 }
-                if ((y + radius) >= worldY) {
+                if ((y + radius) >= posY + worldY / 2) {
                     searchHelp(found, i.getRight(), x, y, radius, depth + 1,
-                        worldX, worldY + worldY / 2);
+                        worldX, worldY / 2, posX, posY + worldY / 2);
                 }
             }
 
