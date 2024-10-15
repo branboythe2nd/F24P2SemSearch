@@ -88,6 +88,7 @@ public class Controller {
             for (String k : s.keywords()) {
                 keywordsTree.delete(k, id);
             }
+            locationTree.delete(s);
         }
         System.out.println("Record with ID " + id
             + " successfully deleted from the database");

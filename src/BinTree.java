@@ -133,6 +133,103 @@ public class BinTree {
 
 
     /**
+     * Delete function for BinTree
+     * 
+     * @param sem
+     *            seminar to be removed
+     */
+    public void delete(Seminar sem) {
+        root = deleteHelp(root, sem, 0, 0, worldSize, worldSize, 0);
+    }
+
+
+    /**
+     * helper method for delelte
+     * 
+     * @param node
+     *            root node
+     * @param sem
+     *            seminar to be removed
+     * @param x
+     *            starting x position
+     * @param y
+     *            starting y position
+     * @param worldX
+     *            world size x
+     * @param worldY
+     *            wold size y
+     * @param depth
+     *            depth level
+     * @return
+     */
+    private BinNode deleteHelp(
+        BinNode node,
+        Seminar sem,
+        int x,
+        int y,
+        int worldX,
+        int worldY,
+        int depth) {
+        if (node instanceof InternalNode) {
+            InternalNode i = (InternalNode)node;
+            if (depth % 2 == 0) {
+                if (sem.x() >= x + worldX / 2) {
+                    i.setRight(deleteHelp(i.getRight(), sem, x + worldX / 2, y,
+                        worldX / 2, worldY, depth + 1));
+                }
+                else {
+                    i.setLeft(deleteHelp(i.getLeft(), sem, x, y, worldX / 2,
+                        worldY, depth + 1));
+                }
+            }
+            else {
+                if (sem.y() >= y + worldY / 2) {
+                    i.setRight(deleteHelp(i.getRight(), sem, x, y + worldY / 2,
+                        worldX, worldY / 2, depth + 1));
+                }
+                else {
+                    i.setLeft(deleteHelp(i.getLeft(), sem, x, y, worldX, worldY
+                        / 2, depth + 1));
+                }
+            }
+            if (i.getLeft() instanceof EmptyNode && i
+                .getRight() instanceof EmptyNode) {
+                return new EmptyNode();
+            }
+            else if (i.getLeft() instanceof LeafNode && i
+                .getRight() instanceof EmptyNode) {
+                return i.getLeft();
+            }
+            else if (i.getRight() instanceof LeafNode && i
+                .getLeft() instanceof EmptyNode) {
+                return i.getRight();
+            }
+            else {
+                return i;
+            }
+
+        }
+        if (node instanceof LeafNode) {
+            LeafNode copy = (LeafNode)node;
+            for (Seminar s : copy.getSemList()) {
+                if (s.id() == sem.id()) {
+                    copy.getSemList().remove(sem);
+                }
+            }
+            if (copy.getSemList().size() == 0) {
+                EmptyNode iNode = new EmptyNode();
+                return iNode;
+            }
+            return copy;
+
+        }
+        else {
+            return node;
+        }
+    }
+
+
+    /**
      * Searches for seminars within a specified radius of the given (x, y)
      * coordinates.
      *
