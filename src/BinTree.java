@@ -140,6 +140,7 @@ public class BinTree {
      */
     public void delete(Seminar sem) {
         root = deleteHelp(root, sem, 0, 0, worldSize, worldSize, 0);
+        numOfRecords--;
     }
 
 
@@ -214,6 +215,7 @@ public class BinTree {
             for (Seminar s : copy.getSemList()) {
                 if (s.id() == sem.id()) {
                     copy.getSemList().remove(sem);
+                    break;
                 }
             }
             if (copy.getSemList().size() == 0) {
@@ -291,7 +293,6 @@ public class BinTree {
 
         if (node instanceof LeafNode) {
             LeafNode copy = (LeafNode)node;
-
             int xsquare = (x - copy.getxValue()) * (x - copy.getxValue());
             int ysquare = (y - copy.getyValue()) * (y - copy.getyValue());
             int rsquare = radius * radius;

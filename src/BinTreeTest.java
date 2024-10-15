@@ -212,7 +212,34 @@ public class BinTreeTest extends student.TestCase {
         assertEquals(0, found.size());
 
     }
-
+    public void tester()
+    {
+        binTree.insert(99, 150, sem1);
+        assertEquals(1, binTree.getNumOfRecords());
+        binTree.insert(120, 110, sem2);
+        assertEquals(2, binTree.getNumOfRecords());
+        binTree.insert(120, 170, sem3);
+        assertEquals(3, binTree.getNumOfRecords());
+        binTree.insert(90, 180, sem4);
+        assertEquals(4, binTree.getNumOfRecords());
+        binTree.insert(45, 70, sem5);
+        assertEquals(5, binTree.getNumOfRecords());
+        DLList<LeafNode> found = new DLList<LeafNode>();
+        binTree.print();
+        found = binTree.search(90, 180, 0);
+        assertEquals(found.size(),1);
+        binTree.insert(90, 180, new Seminar(10, "oho", "2710051600", 120, (short)90,
+            (short)180, 360, keywords, "oo"));
+        binTree.insert(90, 180, new Seminar(13, "oho", "2710051600", 120, (short)90,
+            (short)180, 360, keywords, "oo"));
+        binTree.insert(90, 180, new Seminar(16, "oho", "2710051600", 120, (short)90,
+            (short)180, 360, keywords, "oo"));
+        binTree.insert(90, 180,new Seminar(20, "oho", "2710051600", 120, (short)90,
+            (short)180, 360, keywords, "oo"));
+        
+        
+    }
+   
 
     /**
      * Testing search method with additional cases.
