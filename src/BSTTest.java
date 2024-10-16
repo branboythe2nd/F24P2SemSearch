@@ -315,12 +315,12 @@ public class BSTTest extends student.TestCase {
         test.insert(sem6.id(), sem6);
         test.insert(sem7.id(), sem7);
         test.insert(sem10.id(), sem10);
-        test.insert(sem4.id(), sem4); // ID 4
+        test.insert(sem4.id(), sem4); 
 
         DLList<Seminar> result = test.searchRange(5, 8);
-        assertEquals(2, result.size()); // We expect 2 results: sem6 and sem7
-        assertTrue(result.contains(sem6)); // sem6 should be in the result
-        assertTrue(result.contains(sem7)); // sem7 should be in the result
+        assertEquals(2, result.size()); 
+        assertTrue(result.contains(sem6)); 
+        assertTrue(result.contains(sem7)); 
         assertFalse(result.contains(sem10));
         assertEquals(7, test.getNodesTraversed());
 
@@ -527,12 +527,10 @@ public class BSTTest extends student.TestCase {
      * Tests the more rigid edge cases for print
      */
     public void testPrint1() {
-        // Insert nodes
-        test.insert(20, sem1); // Root node with key 20
-        test.insert(10, sem2); // Left child
-        test.insert(30, sem3); // Right child
+        test.insert(20, sem1); 
+        test.insert(10, sem2); 
+        test.insert(30, sem3); 
 
-        // Capture the printed output
         test.print();
 
         String expectedOutput = "(null)\r\n" + "    \\\r\n" + "    (10)\r\n"
@@ -540,7 +538,6 @@ public class BSTTest extends student.TestCase {
             + "        /\r\n" + "(null)\r\n" + "    \\\r\n" + "    (30)\r\n"
             + "    /\r\n" + "(null)\r\n" + "Number of Records: 3\n";
 
-        // Check the printed output (compare to the expected output)
         assertEquals(systemOut().getHistory(), expectedOutput);
     }
 
@@ -549,12 +546,11 @@ public class BSTTest extends student.TestCase {
      * Tests print again
      */
     public void testPrint2() {
-        // Insert nodes to create a deeper right subtree
-        test.insert(20, sem1); // Root node with key 20
-        test.insert(30, sem2); // Right child
-        test.insert(40, sem3); // Right child of 30
+        test.insert(20, sem1); 
+        test.insert(30, sem2);
+        test.insert(40, sem3);
 
-        // Capture the printed output
+       
         test.print();
 
         String expectedOutput = "        (null)\r\n" + "            \\\r\n"
@@ -562,8 +558,6 @@ public class BSTTest extends student.TestCase {
             + "        \\\r\n" + "        (30)\r\n" + "        /\r\n"
             + "(null)\r\n" + "    \\\r\n" + "    (40)\r\n" + "    /\r\n"
             + "(null)\r\n" + "Number of Records: 3\n";
-
-        // Check the printed output (compare to the expected output)
         assertEquals(systemOut().getHistory(), expectedOutput);
     }
 

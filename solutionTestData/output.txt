@@ -179,6 +179,32 @@ Location Tree:
 (Leaf with 2 objects: 1 2)
 (Leaf with 1 objects: 3)
 Record with ID 1 successfully deleted from the database
+Successfully inserted record with ID 1
+ID: 1, Title: Overview of HCI Research at VT
+Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45
+Description: This seminar will present an overview of HCI research at VT
+Keywords: HCI, Computer_Science, VT, Virginia_Tech
+Successfully inserted record with ID 13
+ID: 13, Title: Overview of HCI Research at VT
+Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45
+Description: This seminar will present an overview of HCI research at VT
+Keywords: HCI, Computer_Science, VT, Virginia_Tech
+Location Tree:
+(I)
+    (E)
+    (I)
+        (E)
+        (I)
+            (E)
+            (I)
+                (E)
+                (I)
+                    (Leaf with 1 objects: 10)
+                    (I)
+                        (E)
+                        (I)
+                            (Leaf with 3 objects: 1 2 13)
+                            (Leaf with 1 objects: 3)
 Delete FAILED -- There is no record with ID 6
 Search FAILED -- There is no record with ID 6
 Search FAILED -- There is no record with ID 99

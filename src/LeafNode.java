@@ -39,26 +39,21 @@ public class LeafNode implements BinNode {
      *            the seminar to be added to the leaf node
      */
     public void insert(Seminar s) {
-        if (semList.isEmpty()) {
+        boolean inserted = false;
+        for (Seminar sem : semList) {
+            int i = semList.lastIndexOf(sem);
+
+            if (s.id() < sem.id()) {
+
+                semList.add(i, s);
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted) {
             semList.add(s);
         }
-        else {
-            boolean inserted = false;
-            for (Seminar sem : semList) {
-                int i = semList.lastIndexOf(sem);
-
-                if (s.id() < sem.id()) {
-
-                    semList.add(i, s);
-                    inserted = true;
-                    break;
-                }
-            }
-            if (!inserted) {
-                semList.add(s);
-            }
-
-        }
+            
     }
 
 

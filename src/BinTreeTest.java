@@ -78,54 +78,44 @@ public class BinTreeTest extends student.TestCase {
         binTree.insert(45, 70, sem5);
         assertEquals(5, binTree.getNumOfRecords());
 
-        // Check if the root is correctly initialized as an InternalNode
         assertTrue(binTree.getRoot() instanceof InternalNode);
         InternalNode root = (InternalNode)binTree.getRoot();
 
-        // Checking right subtree structure after multiple insertions
-        root = (InternalNode)root.getRight(); // Moving to the right subtree
-        assertTrue(root.getLeft() instanceof EmptyNode); // Left should be empty
+        // Right tree
+        root = (InternalNode)root.getRight();
+        assertTrue(root.getLeft() instanceof EmptyNode);
 
-        root = (InternalNode)root.getRight(); // Further move to the right
-                                              // subtree
-        assertTrue(root.getRight() instanceof EmptyNode); // Right should be
-                                                          // empty
+        root = (InternalNode)root.getRight();
+        assertTrue(root.getRight() instanceof EmptyNode);
 
-        root = (InternalNode)root.getLeft(); // Move to left subtree
-
-        // Check that both leaf nodes have the correct x and y values
+        root = (InternalNode)root.getLeft();
         LeafNode l1 = (LeafNode)root.getRight();
         LeafNode l2 = (LeafNode)root.getLeft();
         assertEquals(l1.getxValue(), 120);
         assertEquals(l1.getyValue(), 170);
         assertEquals(l2.getxValue(), 120);
         assertEquals(l2.getyValue(), 110);
-
-        // Inserting another seminar at the same coordinates to test list
-        // insertion in leaf
         binTree.insert(120, 170, sem6);
         assertTrue(l1.getSemList().contains(sem6));
         assertTrue(l1.getSemList().contains(sem3));
 
-        // Checking the left subtree structure after insertions
+        // Left tree
         root = (InternalNode)binTree.getRoot();
-        root = (InternalNode)root.getLeft(); // Move to the left subtree
-        assertTrue(root.getLeft() instanceof LeafNode); // Should have a leaf
-                                                        // node
+        root = (InternalNode)root.getLeft();
+        assertTrue(root.getLeft() instanceof LeafNode);
 
         l1 = (LeafNode)root.getLeft();
         assertEquals(l1.getxValue(), 45);
         assertEquals(l1.getyValue(), 70);
 
         root = (InternalNode)root.getRight();
-        assertTrue(root.getLeft() instanceof EmptyNode); // Check left node
+        assertTrue(root.getLeft() instanceof EmptyNode);
         root = (InternalNode)root.getRight();
-        assertTrue(root.getLeft() instanceof EmptyNode); // Check deeper nodes
+        assertTrue(root.getLeft() instanceof EmptyNode);
         root = (InternalNode)root.getRight();
         assertTrue(root.getLeft() instanceof EmptyNode);
         root = (InternalNode)root.getRight();
 
-        // Final checks on leaf nodes for right subtree
         assertTrue(root.getLeft() instanceof LeafNode);
         assertTrue(root.getRight() instanceof LeafNode);
         l1 = (LeafNode)root.getRight();
@@ -134,40 +124,45 @@ public class BinTreeTest extends student.TestCase {
         assertEquals(l1.getyValue(), 180);
         assertEquals(l2.getxValue(), 99);
         assertEquals(l2.getyValue(), 150);
+        binTree.delete(sem1);
+        root = (InternalNode)binTree.getRoot();
+        root = (InternalNode)root.getLeft();
+        assertTrue(root.getLeft() instanceof LeafNode);
 
-        // Insert another seminar at coordinates that already exist
+        l1 = (LeafNode)root.getLeft();
+        assertEquals(l1.getxValue(), 45);
+        assertEquals(l1.getyValue(), 70);
+
+        l1 = (LeafNode)root.getRight();
+        assertEquals(l1.getxValue(), 90);
+        assertEquals(l1.getyValue(), 180);
         binTree.insert(45, 70, sem7);
+        binTree.insert(90, 180, sem1);
         root = (InternalNode)binTree.getRoot();
         root = (InternalNode)root.getLeft();
         l1 = (LeafNode)root.getLeft();
-        assertEquals(l1.getSemList().size(), 2); // Should have 2 seminars at
-                                                 // this point
+        assertEquals(l1.getSemList().size(), 2);
         assertTrue(l1.getSemList().contains(sem7));
         assertTrue(l1.getSemList().contains(sem5));
 
-        // Insert seminar with different x and y
         binTree.insert(90, 150, sem8);
 
-        // Further traversals and checks for deeper tree nodes after insertion
         root = (InternalNode)binTree.getRoot();
-        root = (InternalNode)root.getLeft(); // Moving left again
-        root = (InternalNode)root.getRight(); // Move right down the tree
+        root = (InternalNode)root.getLeft();
+        root = (InternalNode)root.getRight();
         root = (InternalNode)root.getRight();
         root = (InternalNode)root.getRight();
         root = (InternalNode)root.getRight();
         root = (InternalNode)root.getLeft();
 
-        // Ensure the new nodes and leaves are correctly inserted
         assertTrue(root.getLeft() instanceof EmptyNode);
         assertTrue(root.getRight() instanceof InternalNode);
 
-        // Further deep checks on nodes and values
         root = (InternalNode)root.getRight();
         root = (InternalNode)root.getLeft();
         l1 = (LeafNode)root.getRight();
         l2 = (LeafNode)root.getLeft();
 
-        // Final assertions to check correctness of x and y values
         assertEquals(l1.getxValue(), 99);
         assertEquals(l1.getyValue(), 150);
         assertEquals(l2.getxValue(), 90);
@@ -215,9 +210,9 @@ public class BinTreeTest extends student.TestCase {
 
 
     /**
-     * Another test case
+     * Test for adding and searching mutiple nodes at the same
      */
-    public void tester() {
+    public void testMultipleNodesAtSameLeaf() {
         binTree.insert(99, 150, sem1);
         assertEquals(1, binTree.getNumOfRecords());
         binTree.insert(120, 110, sem2);
@@ -248,21 +243,18 @@ public class BinTreeTest extends student.TestCase {
      * Testing search method with additional cases.
      */
     public void testSearch() {
-        // Initial test to check search in an empty tree
+
         assertNull(binTree.search(100, 150, 10));
 
-        // Insert a few seminars to the tree
         binTree.insert(99, 150, sem1);
         binTree.insert(120, 110, sem2);
         binTree.insert(120, 170, sem3);
         binTree.insert(90, 180, sem4);
 
-        // Search for seminars within a radius that doesn't capture any
         assertTrue(binTree.search(75, 40, 5).isEmpty());
 
         binTree.insert(45, 70, sem5);
 
-        // Search within a radius that captures exactly one seminar
         DLList<LeafNode> found = binTree.search(100, 100, 50);
         assertEquals(1, found.size());
         for (LeafNode l : found) {
@@ -270,23 +262,19 @@ public class BinTreeTest extends student.TestCase {
             assertEquals(110, l.getyValue());
         }
 
-        // Search within a large radius that captures all seminars
         found = binTree.search(0, 0, 1000);
         assertEquals(5, found.size());
 
-        // Test for exact match
-        found = binTree.search(120, 170, 0); // Exact match
+        found = binTree.search(120, 170, 0);
         assertEquals(1, found.size());
         for (LeafNode l : found) {
             assertEquals(120, l.getxValue());
             assertEquals(170, l.getyValue());
         }
 
-        // Test for another near match
         found = binTree.search(75, 175, 40);
         assertEquals(2, found.size());
 
-        // Test for multiple matches within a larger radius
         found = binTree.search(75, 175, 50);
         assertEquals(3, found.size());
         for (LeafNode l : found) {
@@ -300,7 +288,6 @@ public class BinTreeTest extends student.TestCase {
         for (LeafNode l : found) {
             assertTrue((l.getxValue() == 45 && l.getyValue() == 70));
         }
-        // More exact match cases
         found = binTree.search(99, 150, 0);
         assertEquals(1, found.size());
         for (LeafNode l : found) {
@@ -315,7 +302,6 @@ public class BinTreeTest extends student.TestCase {
             assertEquals(110, l.getyValue());
         }
 
-        // Non-match cases with a small radius
         found = binTree.search(200, 200, 5);
         assertTrue(found.isEmpty());
 
@@ -326,62 +312,41 @@ public class BinTreeTest extends student.TestCase {
         found = binTree.search(130, 140, 0);
         assertTrue(found.isEmpty());
 
-        // Additional test cases to check equality comparison behavior
-
-        // Test for exact match (true case)
-        found = binTree.search(99, 150, 0); // This should find the node with
-                                            // (99, 150)
+        found = binTree.search(99, 150, 0);
         assertEquals(1, found.size());
         for (LeafNode l : found) {
             assertEquals(99, l.getxValue());
             assertEquals(150, l.getyValue());
         }
 
-        // Test for non-match (false case)
-        found = binTree.search(99, 149, 0); // This should not find any nodes
-                                            // because it's not an exact match
+        found = binTree.search(99, 149, 0);
         assertTrue(found.isEmpty());
 
-        // Test for a near match but with zero radius (false case)
-        found = binTree.search(99, 151, 0); // This should not find any nodes,
-                                            // because it's off by 1 and radius
-                                            // is zero
+        found = binTree.search(99, 151, 0);
         assertTrue(found.isEmpty());
 
-        // Test with a small radius that just captures the point (false case)
-        found = binTree.search(99, 151, 1); // This should not find any nodes
-                                            // because radius is too small
+        found = binTree.search(99, 151, 1);
         assertEquals(1, found.size());
 
-        found = binTree.search(98, 150, 0); // This should not find any nodes
-                                            // because it's not an exact match
+        found = binTree.search(98, 150, 0);
         assertTrue(found.isEmpty());
 
-        // Test for a near match but with zero radius (false case)
-        found = binTree.search(100, 150, 0); // This should not find any nodes,
-                                             // because it's off by 1 and radius
-                                             // is zero
+        found = binTree.search(100, 150, 0);
         assertTrue(found.isEmpty());
 
-        // Test with a small radius that just captures the point (false case)
-        found = binTree.search(100, 150, 1); // This should not find any nodes
-                                             // because radius is too small
+        found = binTree.search(100, 150, 1);
         assertEquals(1, found.size());
 
-        // Test with a small radius that captures the point (true case)
-        found = binTree.search(99, 150, 1); // This should find the node because
-                                            // it's within the radius of 1
+        found = binTree.search(99, 150, 1);
         assertEquals(1, found.size());
         for (LeafNode l : found) {
             assertEquals(99, l.getxValue());
             assertEquals(150, l.getyValue());
         }
 
-        // Test with a larger radius that includes multiple points (boundary
-        // case)
-        found = binTree.search(99, 150, 100); // Should find multiple points now
+        found = binTree.search(99, 150, 100);
         assertTrue(found.size() > 1);
-        found = binTree.search(100, 25, 20); // Should find multiple points now
+        found = binTree.search(100, 25, 20);
         assertTrue(found.isEmpty());
     }
 
@@ -456,25 +421,16 @@ public class BinTreeTest extends student.TestCase {
 
 
     /**
-     * Read contents of a file into a string
-     * 
-     * @param path
-     *            File name
-     * @return the string
-     * @throws IOException
-     */
-    static String readFile(String path) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded);
-    }
-
-
-    /**
-     * ANOTHER TEST CASE
+     * Tests delete method in bintree
      */
     public void testDelete() {
+
         binTree.insert(99, 150, sem1);
         assertEquals(1, binTree.getNumOfRecords());
+        binTree.delete(sem1);
+        assertEquals(0, binTree.getNumOfRecords());
+        assertTrue(binTree.getRoot() instanceof EmptyNode);
+        binTree.insert(99, 150, sem1);
         binTree.insert(120, 110, sem2);
         assertEquals(2, binTree.getNumOfRecords());
         binTree.insert(120, 170, sem3);

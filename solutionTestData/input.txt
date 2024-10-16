@@ -40,6 +40,18 @@ search location 10 10 20
 
 print location
 delete 1
+insert 1
+Overview of HCI Research at VT
+0610051600 90 10 10 45
+HCI Computer_Science VT Virginia_Tech
+This seminar will present an overview of HCI research at VT
+insert 13
+Overview of HCI Research at VT
+0610051600 90 10 10 45
+HCI Computer_Science VT Virginia_Tech
+This seminar will present an overview of HCI research at VT
+print location
+
 delete 6
 search id 6
 search id 99
