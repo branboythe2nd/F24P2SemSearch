@@ -83,50 +83,18 @@ public class BinTree {
 
         if (node instanceof InternalNode) {
             InternalNode i = (InternalNode)node;
-            if (depth % 2 == 0) {
-                if (sem.x() >= x + worldX / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, x + worldX / 2, y,
-                        worldX / 2, worldY, depth + 1));
-                }
-                else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX / 2,
-                        worldY, depth + 1));
-                }
-            }
-            else {
-                if (sem.y() >= y + worldY / 2) {
-                    i.setRight(insertHelp(i.getRight(), sem, x, y + worldY / 2,
-                        worldX, worldY / 2, depth + 1));
-                }
-                else {
-                    i.setLeft(insertHelp(i.getLeft(), sem, x, y, worldX, worldY
-                        / 2, depth + 1));
-                }
-            }
-
-            return i;
+            return i.insert(node, sem, x, y, worldX, worldY, depth, emptyNode);
 
         }
         if (node instanceof LeafNode) {
             LeafNode copy = (LeafNode)node;
-            if (sem.x() == copy.getxValue() && sem.y() == copy.getyValue()) {
-                copy.insert(sem);
-                return copy;
-            }
-            InternalNode iNode = new InternalNode(emptyNode, emptyNode);
-            for (Seminar s : copy.getSemList()) {
-                iNode = (InternalNode)insertHelp(iNode, s, x, y, worldX, worldY,
-                    depth);
-            }
-            iNode = (InternalNode)insertHelp(iNode, sem, x, y, worldX, worldY,
-                depth);
-
-            return iNode;
+            return copy.insert(node, sem, x, y, worldX, worldY, depth,
+                emptyNode);
         }
         else {
-            LeafNode leaf = new LeafNode(sem.x(), sem.y());
-            leaf.insert(sem);
-            return leaf;
+            EmptyNode empty = (EmptyNode)node;
+            return empty.insert(node, sem, x, y, worldX, worldY, depth,
+                emptyNode);
         }
 
     }
@@ -145,7 +113,7 @@ public class BinTree {
 
 
     /**
-     * helper method for delelte
+     * helper method for delete
      * 
      * @param node
      *            root node
@@ -173,60 +141,17 @@ public class BinTree {
         int depth) {
         if (node instanceof InternalNode) {
             InternalNode i = (InternalNode)node;
-            if (depth % 2 == 0) {
-                if (sem.x() >= x + worldX / 2) {
-                    i.setRight(deleteHelp(i.getRight(), sem, x + worldX / 2, y,
-                        worldX / 2, worldY, depth + 1));
-                }
-                else {
-                    i.setLeft(deleteHelp(i.getLeft(), sem, x, y, worldX / 2,
-                        worldY, depth + 1));
-                }
-            }
-            else {
-                if (sem.y() >= y + worldY / 2) {
-                    i.setRight(deleteHelp(i.getRight(), sem, x, y + worldY / 2,
-                        worldX, worldY / 2, depth + 1));
-                }
-                else {
-                    i.setLeft(deleteHelp(i.getLeft(), sem, x, y, worldX, worldY
-                        / 2, depth + 1));
-                }
-            }
-            if (i.getLeft() instanceof EmptyNode && i
-                .getRight() instanceof EmptyNode) {
-                return new EmptyNode();
-            }
-            else if (i.getLeft() instanceof LeafNode && i
-                .getRight() instanceof EmptyNode) {
-                return i.getLeft();
-            }
-            else if (i.getRight() instanceof LeafNode && i
-                .getLeft() instanceof EmptyNode) {
-                return i.getRight();
-            }
-            else {
-                return i;
-            }
+            return i.delete(node, sem, x, y, worldX, worldY, depth);
 
         }
         if (node instanceof LeafNode) {
             LeafNode copy = (LeafNode)node;
-            for (Seminar s : copy.getSemList()) {
-                if (s.id() == sem.id()) {
-                    copy.getSemList().remove(sem);
-                    break;
-                }
-            }
-            if (copy.getSemList().size() == 0) {
-                EmptyNode iNode = new EmptyNode();
-                return iNode;
-            }
-            return copy;
+            return copy.delete(node, sem, x, y, worldX, worldY, depth);
 
         }
         else {
-            return node;
+            EmptyNode empty = (EmptyNode)node;
+            return empty.delete(node, sem, x, y, worldX, worldY, depth);
         }
     }
 
@@ -250,7 +175,8 @@ public class BinTree {
         }
         DLList<LeafNode> found = new DLList<LeafNode>();
         setNodesTraversed(0);
-        searchHelp(found, root, x, y, radius, 0, worldSize, worldSize, 0, 0);
+        nodesTraversed = searchHelp(found, root, x, y, radius, 0, worldSize,
+            worldSize, 0, 0);
         return found;
     }
 
@@ -280,8 +206,9 @@ public class BinTree {
      *            comparable x value
      * @param posY
      *            comparable y value
+     * @return nodes traversed
      */
-    public void searchHelp(
+    public int searchHelp(
         DLList<LeafNode> found,
         BinNode node,
         int x,
@@ -293,50 +220,23 @@ public class BinTree {
         int posX,
         int posY) {
         if (node instanceof EmptyNode) {
-            nodesTraversed++;
-            return;
+            EmptyNode empty = (EmptyNode)node;
+            return empty.search(found, node, x, y, radius, depth, worldX,
+                worldY, posX, posY);
+
         }
 
         if (node instanceof LeafNode) {
             LeafNode copy = (LeafNode)node;
-            int xsquare = (x - copy.getxValue()) * (x - copy.getxValue());
-            int ysquare = (y - copy.getyValue()) * (y - copy.getyValue());
-            int rsquare = radius * radius;
+            return copy.search(found, node, x, y, radius, depth, worldX, worldY,
+                posX, posY);
 
-            if (copy.getxValue() == x && copy.getyValue() == y) {
-                found.add(copy);
-            }
-            else if ((xsquare + ysquare) <= rsquare) {
-                found.add(copy);
-            }
-            nodesTraversed++;
-            return;
         }
 
         else {
             InternalNode i = (InternalNode)node;
-            nodesTraversed++;
-
-            if (depth % 2 == 0) {
-                if ((x - radius) < posX + worldX / 2) {
-                    searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
-                        worldX / 2, worldY, posX, posY);
-                }
-                if ((x + radius >= posX + worldX / 2)) {
-                    searchHelp(found, i.getRight(), x, y, radius, depth + 1,
-                        worldX / 2, worldY, posX + worldX / 2, posY);
-                }
-            }
-            else {
-                if ((y - radius) < posY + worldY / 2) {
-                    searchHelp(found, i.getLeft(), x, y, radius, depth + 1,
-                        worldX, worldY / 2, posX, posY);
-                }
-                if ((y + radius) >= posY + worldY / 2) {
-                    searchHelp(found, i.getRight(), x, y, radius, depth + 1,
-                        worldX, worldY / 2, posX, posY + worldY / 2);
-                }
-            }
+            return i.search(found, node, x, y, radius, depth, worldX, worldY,
+                posX, posY);
 
         }
 
